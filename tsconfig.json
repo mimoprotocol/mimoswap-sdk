@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "incremental": true,
+    "baseUrl": ".",
     "target": "es2017",
     "outDir": "build/main",
     "moduleResolution": "node",
@@ -32,7 +33,10 @@
     // "experimentalDecorators": true /* Enables experimental support for ES7 decorators. */,
     // "emitDecoratorMetadata": true /* Enables experimental support for emitting type metadata for decorators. */,
     "lib": ["es2017", "dom"],
-    "types": ["node", "jest"]
+    "types": ["node", "jest"],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
   "include": ["src/index.ts"],
   "compileOnSave": false

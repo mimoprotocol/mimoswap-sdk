@@ -16,7 +16,7 @@ import {
   SwapType,
   TO_PROTOCOL,
 } from '../src';
-import { Protocol } from '@uniswap/router-sdk';
+import { Protocol } from '../src/router-sdk';
 import _ from 'lodash';
 
 describe('IOTEX Trade Test', () => {
@@ -40,12 +40,12 @@ describe('IOTEX Trade Test', () => {
   it(`trade-iotex-test`, async () => {
     const t1 = new Token(
       chainId,
-      '0x6fbcdc1169b5130c59e72e51ed68a84841c98cd1',
+      '0xa00744882684c3e4747faefd68d283ea44099d03',
       18
     );
     const t2 = new Token(
       chainId,
-      '0xa00744882684c3e4747faefd68d283ea44099d03',
+      '0x6c0bf4b53696b5434a0d21c7d13aa3cbf754913e',
       18
     );
     const router = new AlphaRouter({

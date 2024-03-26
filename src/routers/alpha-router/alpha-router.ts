@@ -1,7 +1,7 @@
 import { BigNumber } from '@ethersproject/bignumber';
 import { BaseProvider, JsonRpcProvider } from '@ethersproject/providers';
 import DEFAULT_TOKEN_LIST from '@uniswap/default-token-list';
-import { Protocol, SwapRouter, Trade, ZERO } from '@uniswap/router-sdk';
+import { Protocol, SwapRouter, Trade, ZERO } from '@/router-sdk';
 import { ChainId, Currency, Fraction, Token, TradeType } from '../../sdk-core';
 import { TokenList } from '@uniswap/token-lists';
 import { Pool, Position, SqrtPriceMath, TickMath } from '@uniswap/v3-sdk';
@@ -533,6 +533,7 @@ export class AlphaRouter
           break;
         case ChainId.BASE:
         case ChainId.BLAST:
+        case ChainId.IOTEX:
         case ChainId.BASE_GOERLI:
           this.onChainQuoteProvider = new OnChainQuoteProvider(
             chainId,

@@ -1,4 +1,4 @@
-import { Protocol } from '@uniswap/router-sdk';
+import { Protocol } from '@/router-sdk';
 import {
   ChainId,
   Currency,

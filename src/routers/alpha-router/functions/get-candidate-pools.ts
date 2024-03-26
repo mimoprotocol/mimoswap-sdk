@@ -1,4 +1,4 @@
-import { Protocol } from '@uniswap/router-sdk';
+import { Protocol } from '@/router-sdk';
 import { ChainId, Token, TradeType } from '../../../sdk-core';
 import { FeeAmount } from '@uniswap/v3-sdk';
 import _ from 'lodash';
@@ -187,6 +187,7 @@ const baseTokensByChain: { [chainId in ChainId]?: Token[] } = {
   [ChainId.AVALANCHE]: [DAI_AVAX, USDC_AVAX],
   [ChainId.BASE]: [USDC_BASE],
   [ChainId.BLAST]: [WRAPPED_NATIVE_CURRENCY[ChainId.BLAST]!, USDB_BLAST],
+  [ChainId.IOTEX]: [WRAPPED_NATIVE_CURRENCY[ChainId.IOTEX]!],
 };
 
 class SubcategorySelectionPools<SubgraphPool> {

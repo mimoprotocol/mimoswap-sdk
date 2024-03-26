@@ -1,5 +1,5 @@
 import { BigNumber } from '@ethersproject/bignumber';
-import { Protocol } from '@uniswap/router-sdk';
+import { Protocol } from '@/router-sdk';
 import { ChainId, Percent, Token, TradeType } from '../sdk-core';
 import { FeeAmount, Pool } from '@uniswap/v3-sdk';
 import brotli from 'brotli';
@@ -26,7 +26,7 @@ import {
 } from '../routers';
 import { CurrencyAmount, log, WRAPPED_NATIVE_CURRENCY } from '../util';
 
-import { Pair } from '@uniswap/v2-sdk';
+import { Pair } from '@/v2-sdk';
 import { opStackChains } from './l2FeeChains';
 import { buildSwapMethodParameters, buildTrade } from './methodParameters';
 import { estimateL1Gas, estimateL1GasCost } from '@eth-optimism/sdk';

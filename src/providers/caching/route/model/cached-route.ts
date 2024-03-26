@@ -1,4 +1,4 @@
-import { Protocol } from '@uniswap/router-sdk';
+import { Protocol } from '@/router-sdk';
 import { Token } from '../../../../sdk-core';
 import { Pool } from '@uniswap/v3-sdk';
 

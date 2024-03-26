@@ -1,4 +1,4 @@
-import { Protocol } from '@uniswap/router-sdk';
+import { Protocol } from '@/router-sdk';
 import { CurrencyAmount, TradeType } from '../../../../../src/sdk-core';
 import {
   DAI_MAINNET as DAI,

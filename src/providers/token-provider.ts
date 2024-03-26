@@ -110,6 +110,13 @@ export const USDT_IOTEX = new Token(
   'USDT',
   'Tether USD'
 );
+export const WETH_IOTEX = new Token(
+  ChainId.IOTEX,
+  '0xa00744882684c3e4747faefd68d283ea44099d03',
+  18,
+  'WIOTEX',
+  'Wrapped WIOTEX'
+);
 
 export const USDC_SEPOLIA = new Token(
   ChainId.SEPOLIA,

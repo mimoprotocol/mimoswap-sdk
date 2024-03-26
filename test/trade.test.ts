@@ -16,7 +16,7 @@ import {
   SwapType,
   TO_PROTOCOL,
 } from '../src';
-import { Protocol } from '@uniswap/router-sdk';
+import { Protocol } from '../src/router-sdk';
 import _ from 'lodash';
 
 describe('MAINNET Trade Test', () => {
