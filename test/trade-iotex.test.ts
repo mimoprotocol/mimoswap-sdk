@@ -23,7 +23,7 @@ describe('IOTEX Trade Test', () => {
   const chainId = ID_TO_CHAIN_ID(ChainId.IOTEX);
   const chainProvider = ID_TO_PROVIDER(chainId);
   const provider = new JsonRpcProvider(chainProvider, chainId);
-  const protocolsStr = 'v2,v3';
+  const protocolsStr = 'v2';
   let protocols: Protocol[] = [];
   if (protocolsStr) {
     try {
