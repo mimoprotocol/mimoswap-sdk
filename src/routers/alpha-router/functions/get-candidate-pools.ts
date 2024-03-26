@@ -46,6 +46,7 @@ import {
   USDC_SEPOLIA,
   USDT_ARBITRUM,
   USDT_BNB,
+  USDT_IOTEX,
   USDT_MAINNET,
   USDT_OPTIMISM,
   USDT_OPTIMISM_GOERLI,
@@ -187,14 +188,14 @@ const baseTokensByChain: { [chainId in ChainId]?: Token[] } = {
   [ChainId.AVALANCHE]: [DAI_AVAX, USDC_AVAX],
   [ChainId.BASE]: [USDC_BASE],
   [ChainId.BLAST]: [WRAPPED_NATIVE_CURRENCY[ChainId.BLAST]!, USDB_BLAST],
-  [ChainId.IOTEX]: [WRAPPED_NATIVE_CURRENCY[ChainId.IOTEX]!],
+  [ChainId.IOTEX]: [WRAPPED_NATIVE_CURRENCY[ChainId.IOTEX]!, USDT_IOTEX],
 };
 
 class SubcategorySelectionPools<SubgraphPool> {
   constructor(
     public pools: SubgraphPool[],
     public readonly poolsNeeded: number
-  ) {}
+  ) { }
 
   public hasEnoughPools(): boolean {
     return this.pools.length >= this.poolsNeeded;
@@ -538,8 +539,7 @@ export async function getV3CandidatePools({
   });
 
   const printV3SubgraphPool = (s: V3SubgraphPool) =>
-    `${tokenAccessor.getTokenByAddress(s.token0.id)?.symbol ?? s.token0.id}/${
-      tokenAccessor.getTokenByAddress(s.token1.id)?.symbol ?? s.token1.id
+    `${tokenAccessor.getTokenByAddress(s.token0.id)?.symbol ?? s.token0.id}/${tokenAccessor.getTokenByAddress(s.token1.id)?.symbol ?? s.token1.id
     }/${s.feeTier}`;
 
   log.info(
@@ -578,10 +578,8 @@ export async function getV3CandidatePools({
 
     if (!tokenA || !tokenB) {
       log.info(
-        `Dropping candidate pool for ${subgraphPool.token0.id}/${
-          subgraphPool.token1.id
-        }/${fee} because ${
-          tokenA ? subgraphPool.token1.id : subgraphPool.token0.id
+        `Dropping candidate pool for ${subgraphPool.token0.id}/${subgraphPool.token1.id
+        }/${fee} because ${tokenA ? subgraphPool.token1.id : subgraphPool.token0.id
         } not found by token provider`
       );
       return undefined;
@@ -1157,8 +1155,7 @@ export async function getV2CandidatePools({
   });
 
   const printV2SubgraphPool = (s: V2SubgraphPool) =>
-    `${tokenAccessor.getTokenByAddress(s.token0.id)?.symbol ?? s.token0.id}/${
-      tokenAccessor.getTokenByAddress(s.token1.id)?.symbol ?? s.token1.id
+    `${tokenAccessor.getTokenByAddress(s.token0.id)?.symbol ?? s.token0.id}/${tokenAccessor.getTokenByAddress(s.token1.id)?.symbol ?? s.token1.id
     }`;
 
   log.info(
@@ -1369,10 +1366,8 @@ export async function getMixedRouteCandidatePools({
 
     if (!tokenA || !tokenB) {
       log.info(
-        `Dropping candidate pool for ${subgraphPool.token0.id}/${
-          subgraphPool.token1.id
-        }/${fee} because ${
-          tokenA ? subgraphPool.token1.id : subgraphPool.token0.id
+        `Dropping candidate pool for ${subgraphPool.token0.id}/${subgraphPool.token1.id
+        }/${fee} because ${tokenA ? subgraphPool.token1.id : subgraphPool.token0.id
         } not found by token provider`
       );
       return undefined;
