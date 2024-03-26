@@ -56,6 +56,9 @@ import {
   WBTC_OPTIMISM_SEPOLIA,
   WMATIC_POLYGON,
   WMATIC_POLYGON_MUMBAI,
+  // USDC_IOTEX,
+  USDT_IOTEX,
+  WETH_IOTEX,
 } from './token-provider';
 
 // These tokens will added to the Token cache on initialization.
@@ -78,6 +81,11 @@ export const CACHE_SEED_TOKENS: {
       'RING',
       'RING'
     ),
+  },
+  [ChainId.IOTEX]: {
+    // USDC: USDC_IOTEX,
+    USDT: USDT_IOTEX,
+    WETH: WETH_IOTEX,
   },
   [ChainId.SEPOLIA]: {
     USDC: USDC_SEPOLIA,

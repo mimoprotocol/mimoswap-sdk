@@ -1,10 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber';
 import { BaseProvider } from '@ethersproject/providers';
-import {
-  encodeMixedRouteToPath,
-  MixedRouteSDK,
-  Protocol,
-} from '@uniswap/router-sdk';
+import { encodeMixedRouteToPath, MixedRouteSDK, Protocol } from '@/router-sdk';
 import { ChainId } from '../sdk-core';
 import { encodeRouteToPath } from '@uniswap/v3-sdk';
 import retry, { Options as RetryOptions } from 'async-retry';

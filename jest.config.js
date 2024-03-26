@@ -8,4 +8,7 @@ module.exports = {
    */
   // testEnvironment: "jest-environment-hardhat"
   testTimeout: 20000,
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/src/$1',
+  },
 };

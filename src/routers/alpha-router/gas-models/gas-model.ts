@@ -4,7 +4,7 @@ import {
   CurrencyAmount as CurrencyAmountRaw,
   Token,
 } from '../../../sdk-core';
-import { Pair } from '@uniswap/v2-sdk';
+import { Pair } from '@/v2-sdk';
 import { Pool } from '@uniswap/v3-sdk';
 
 import { ProviderConfig } from '../../../providers/provider';
@@ -32,7 +32,7 @@ import {
   USDC_CELO,
   USDC_ETHEREUM_GNOSIS,
   USDC_GOERLI,
-  USDC_IOTEX,
+  // USDC_IOTEX,
   USDC_MAINNET,
   USDC_MOONBEAM,
   USDC_NATIVE_ARBITRUM,
@@ -117,7 +117,7 @@ export const usdGasTokensByChain: { [chainId in ChainId]?: Token[] } = {
   ],
   [ChainId.BASE]: [USDC_BASE, USDC_NATIVE_BASE],
   [ChainId.BLAST]: [USDB_BLAST],
-  [ChainId.IOTEX]: [USDC_IOTEX, USDT_IOTEX],
+  [ChainId.IOTEX]: [USDT_IOTEX],
 };
 
 export type L1ToL2GasCosts = {
