@@ -1,13 +1,19 @@
 {
-  "name": "mimoswap-sdk",
+  "name": "@dappworks/mimoswap-sdk",
   "version": "0.0.1",
   "description": "Uniswap Smart Order Router",
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",
   "module": "build/module/index.js",
+  "author": "mimo",
+  "private": false,
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Uniswap/smart-order-router.git"
+    "url": "https://github.com/mimoprotocol/mimoswap-sdk.git"
   },
   "license": "GPL",
   "keywords": [],
