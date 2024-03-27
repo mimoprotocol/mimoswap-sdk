@@ -9,7 +9,7 @@ import {
   Price,
   sqrt,
   Token,
-} from '@/sdk-core';
+} from '../../sdk-core';
 import JSBI from 'jsbi';
 import invariant from 'tiny-invariant';
 

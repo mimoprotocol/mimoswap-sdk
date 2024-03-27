@@ -1,6 +1,6 @@
-import { Protocol } from '@/router-sdk';
+import { Protocol } from '../router-sdk';
 import { Percent } from '../sdk-core';
-import { Pair } from '@/v2-sdk';
+import { Pair } from '../v2-sdk';
 import { Pool } from '@uniswap/v3-sdk';
 import _ from 'lodash';
 

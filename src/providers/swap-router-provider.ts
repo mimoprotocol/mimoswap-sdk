@@ -1,4 +1,4 @@
-import { ApprovalTypes } from '@/router-sdk';
+import { ApprovalTypes } from '../router-sdk';
 import { ChainId, Currency, CurrencyAmount } from '../sdk-core';
 
 import { SwapRouter02__factory } from '../types/other/factories/SwapRouter02__factory';

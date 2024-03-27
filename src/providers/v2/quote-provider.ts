@@ -3,7 +3,7 @@ import { TradeType } from '../../sdk-core';
 import {
   InsufficientInputAmountError,
   InsufficientReservesError,
-} from '@/v2-sdk';
+} from '../../v2-sdk';
 
 import { V2Route } from '../../routers/router';
 import { CurrencyAmount } from '../../util/amounts';

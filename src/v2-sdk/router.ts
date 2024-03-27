@@ -5,7 +5,7 @@ import {
   Percent,
   TradeType,
   validateAndParseAddress,
-} from '@/sdk-core';
+} from '../sdk-core';
 import { Trade } from './entities';
 import invariant from 'tiny-invariant';
 

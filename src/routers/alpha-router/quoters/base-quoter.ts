@@ -1,7 +1,7 @@
 import { BigNumber } from '@ethersproject/bignumber';
-import { Protocol } from '@/router-sdk';
+import { Protocol } from '../../../router-sdk';
 import { ChainId, Currency, Token, TradeType } from '../../../sdk-core';
-import { Pair } from '@/v2-sdk';
+import { Pair } from '../../../v2-sdk';
 import { Pool } from '@uniswap/v3-sdk';
 import _ from 'lodash';
 

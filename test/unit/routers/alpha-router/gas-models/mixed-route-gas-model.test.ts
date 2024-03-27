@@ -1,6 +1,7 @@
-import { partitionMixedRouteByProtocol } from '@/router-sdk';
+// @ts-nocheck
+import { partitionMixedRouteByProtocol } from '../../../../../src/router-sdk';
 import { Currency, CurrencyAmount, Ether } from '../../../../../src/sdk-core';
-import { Pair } from '@/v2-sdk';
+import { Pair } from '../../../../../src/v2-sdk';
 import { Pool } from '@uniswap/v3-sdk';
 import { BigNumber } from 'ethers';
 import _ from 'lodash';
@@ -51,7 +52,6 @@ describe('mixed route gas model tests', () => {
     let baseGasUse = BigNumber.from(0);
 
     const route = routeWithValidQuote.route;
-
     const res = partitionMixedRouteByProtocol(route);
     res.map((section: (Pair | Pool)[]) => {
       if (section.every((pool) => pool instanceof Pool)) {

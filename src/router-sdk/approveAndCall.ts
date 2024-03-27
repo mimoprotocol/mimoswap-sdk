@@ -1,7 +1,7 @@
 import { Interface } from '@ethersproject/abi';
 import invariant from 'tiny-invariant';
 import { abi } from '@uniswap/swap-router-contracts/artifacts/contracts/interfaces/IApproveAndCall.sol/IApproveAndCall.json';
-import { Currency, Percent, Token } from '../../src/sdk-core';
+import { Currency, Percent, Token } from '../sdk-core';
 import {
   MintSpecificOptions,
   IncreaseSpecificOptions,

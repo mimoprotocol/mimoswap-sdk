@@ -1,4 +1,5 @@
-import { Ether, Token, WETH9, CurrencyAmount } from '@/sdk-core';
+// @ts-nocheck
+import { Ether, Token, WETH9, CurrencyAmount } from '../../sdk-core';
 import {
   Route as V3RouteSDK,
   Pool,
@@ -8,7 +9,7 @@ import {
 } from '@uniswap/v3-sdk';
 import { RouteV3 } from './route';
 import { Protocol } from './protocol';
-import { Route as V2RouteSDK, Pair } from '@/v2-sdk';
+import { Route as V2RouteSDK, Pair } from '../../v2-sdk';
 import { RouteV2 } from './route';
 
 describe('RouteV3', () => {

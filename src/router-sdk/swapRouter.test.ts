@@ -6,8 +6,8 @@ import {
   Token,
   TradeType,
   WETH9,
-} from '@/sdk-core';
-import { Pair, Route as V2Route, Trade as V2Trade } from '@/v2-sdk';
+} from '../sdk-core';
+import { Pair, Route as V2Route, Trade as V2Trade } from '../v2-sdk';
 import {
   encodeSqrtRatioX96,
   FeeAmount,

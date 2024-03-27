@@ -1,4 +1,4 @@
-import { Protocol } from '@/router-sdk';
+import { Protocol } from '../../../../../../src/router-sdk';
 import {
   ChainId,
   Currency,

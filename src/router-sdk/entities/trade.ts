@@ -6,8 +6,8 @@ import {
   Percent,
   Price,
   TradeType,
-} from '@/sdk-core';
-import { Pair, Route as V2RouteSDK, Trade as V2TradeSDK } from '@/v2-sdk';
+} from '../../sdk-core';
+import { Pair, Route as V2RouteSDK, Trade as V2TradeSDK } from '../../v2-sdk';
 import {
   Pool,
   Route as V3RouteSDK,

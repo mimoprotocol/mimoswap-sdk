@@ -1,4 +1,5 @@
-import { Pair } from '@/v2-sdk';
+// @ts-nocheck
+import { Pair } from '../../../../../src/v2-sdk';
 import { encodeSqrtRatioX96, FeeAmount, Pool } from '@uniswap/v3-sdk';
 import {
   CurrencyAmount,

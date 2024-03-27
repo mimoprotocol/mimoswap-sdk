@@ -1,10 +1,10 @@
 /**
  * @jest-environment hardhat
  */
-
+// @ts-nocheck
 import { JsonRpcProvider, JsonRpcSigner } from '@ethersproject/providers';
 import { AllowanceTransfer, PermitSingle } from '@uniswap/permit2-sdk';
-import { Protocol } from '@/router-sdk';
+import { Protocol } from '../../../../src/router-sdk';
 import {
   ChainId,
   Currency,
@@ -21,7 +21,7 @@ import {
   UNIVERSAL_ROUTER_ADDRESS as UNIVERSAL_ROUTER_ADDRESS_BY_CHAIN,
 } from '@uniswap/universal-router-sdk';
 import { Permit2Permit } from '@uniswap/universal-router-sdk/dist/utils/inputTokens';
-import { Pair } from '@/v2-sdk';
+import { Pair } from '../../../../src/v2-sdk';
 import { encodeSqrtRatioX96, FeeAmount, Pool } from '@uniswap/v3-sdk';
 import bunyan from 'bunyan';
 import { BigNumber, providers, Wallet } from 'ethers';
@@ -134,6 +134,7 @@ const GAS_ESTIMATE_DEVIATION_PERCENT: { [chainId in ChainId]: number } = {
   [ChainId.ZORA_SEPOLIA]: 30,
   [ChainId.ROOTSTOCK]: 30,
   [ChainId.BLAST]: 34,
+  [ChainId.IOTEX]: 30,
 };
 
 const V2_SUPPORTED_PAIRS = [

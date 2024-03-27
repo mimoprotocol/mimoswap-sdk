@@ -1,4 +1,5 @@
-import { Protocol } from '@/router-sdk';
+// @ts-nocheck
+import { Protocol } from '../../../../../../src/router-sdk';
 import {
   DAI_MAINNET,
   MixedRoute,

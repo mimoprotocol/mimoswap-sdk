@@ -1,5 +1,5 @@
 import { BigNumber } from '@ethersproject/bignumber';
-import { ZERO } from '@/router-sdk';
+import { ZERO } from '../router-sdk';
 import { Fraction, TradeType } from '../sdk-core';
 
 import {

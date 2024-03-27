@@ -1,5 +1,5 @@
-import { Currency, Token } from '@/sdk-core';
-import { Pair } from '@/v2-sdk';
+import { Currency, Token } from '../../sdk-core';
+import { Pair } from '../../v2-sdk';
 import { Pool } from '@uniswap/v3-sdk';
 import { MixedRouteSDK } from '../entities/mixedRoute/route';
 
