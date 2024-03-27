@@ -10,7 +10,7 @@ import {
   TradeType,
   WETH9,
   Price,
-} from '@/sdk-core';
+} from '../../sdk-core';
 
 describe('Trade', () => {
   const ETHER = Ether.onChain(1);

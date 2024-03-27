@@ -8,8 +8,8 @@ import {
   CurrencyAmount,
   TradeType,
   Token,
-} from '@/sdk-core';
-import { Pair } from '@/v2-sdk';
+} from '../../../sdk-core';
+import { Pair } from '../../../v2-sdk';
 import { BestTradeOptions, Pool } from '@uniswap/v3-sdk';
 import invariant from 'tiny-invariant';
 import { ONE, ZERO } from '../../constants';

@@ -7,9 +7,9 @@ import {
   TradeType,
   validateAndParseAddress,
   WETH9,
-} from '@/sdk-core';
+} from '../sdk-core';
 import { abi } from '@uniswap/swap-router-contracts/artifacts/contracts/interfaces/ISwapRouter02.sol/ISwapRouter02.json';
-import { Trade as V2Trade } from '@/v2-sdk';
+import { Trade as V2Trade } from '../v2-sdk';
 import {
   encodeRouteToPath,
   FeeOptions,

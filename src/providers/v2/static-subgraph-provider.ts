@@ -1,5 +1,5 @@
 import { ChainId, Token } from '../../sdk-core';
-import { Pair } from '@/v2-sdk';
+import { Pair } from '../../v2-sdk';
 import _ from 'lodash';
 
 import { WRAPPED_NATIVE_CURRENCY } from '../../util/chains';

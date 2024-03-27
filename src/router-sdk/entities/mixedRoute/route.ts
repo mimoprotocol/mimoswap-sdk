@@ -1,9 +1,9 @@
 // @ts-nocheck
 import invariant from 'tiny-invariant';
 
-import { Currency, Price, Token } from '@/sdk-core';
+import { Currency, Price, Token } from '../../../sdk-core';
 import { Pool } from '@uniswap/v3-sdk';
-import { Pair } from '@/v2-sdk';
+import { Pair } from '../../../v2-sdk';
 
 type TPool = Pair | Pool;
 

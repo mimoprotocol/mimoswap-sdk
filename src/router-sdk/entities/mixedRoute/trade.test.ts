@@ -8,8 +8,8 @@ import {
   WETH9,
   Ether,
   Currency,
-} from '@/sdk-core';
-import { Pair } from '@/v2-sdk';
+} from '../../../sdk-core';
+import { Pair } from '../../../v2-sdk';
 import {
   encodeSqrtRatioX96,
   FeeAmount,

@@ -1,5 +1,5 @@
 import { BigNumber } from '@ethersproject/bignumber';
-import { Protocol } from '@/router-sdk';
+import { Protocol } from '../../../../../../src/router-sdk';
 import { ChainId, TradeType } from '../../../../../../src/sdk-core';
 import {
   DAI_MAINNET,

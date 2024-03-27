@@ -1,5 +1,5 @@
 import { BigNumber } from '@ethersproject/bignumber';
-import { Protocol } from '@/router-sdk';
+import { Protocol } from '../../../router-sdk';
 import { ChainId, TradeType } from '../../../sdk-core';
 import JSBI from 'jsbi';
 import _ from 'lodash';

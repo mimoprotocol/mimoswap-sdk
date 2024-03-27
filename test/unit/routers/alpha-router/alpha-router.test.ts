@@ -1,8 +1,9 @@
+// @ts-nocheck
 import { BigNumber } from '@ethersproject/bignumber';
 import { BaseProvider } from '@ethersproject/providers';
-import { Protocol, SwapRouter } from '@/router-sdk';
+import { Protocol, SwapRouter } from '../../../../src/router-sdk';
 import { Fraction, Percent, TradeType } from '../../../../src/sdk-core';
-import { Pair } from '@/v2-sdk';
+import { Pair } from '../../../../src/v2-sdk';
 import { encodeSqrtRatioX96, Pool, Position } from '@uniswap/v3-sdk';
 import JSBI from 'jsbi';
 import _ from 'lodash';

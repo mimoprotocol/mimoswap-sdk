@@ -4,7 +4,7 @@
  * @export
  * @interface IRouteCachingProvider
  */
-import { Protocol } from '@/router-sdk';
+import { Protocol } from '../../../router-sdk';
 import {
   ChainId,
   Currency,

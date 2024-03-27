@@ -1,4 +1,4 @@
-import { Protocol } from '@/router-sdk';
+import { Protocol } from '../../../../router-sdk';
 import { ChainId, Token, TradeType } from '../../../../sdk-core';
 import _ from 'lodash';
 

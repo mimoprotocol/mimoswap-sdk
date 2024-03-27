@@ -1,6 +1,6 @@
 import { Logger } from '@ethersproject/logger';
 import { flags } from '@oclif/command';
-import { Protocol } from '@/router-sdk';
+import { Protocol } from '../../src/router-sdk';
 import { Currency, Percent, TradeType } from '../../src/sdk-core';
 import dotenv from 'dotenv';
 import _ from 'lodash';

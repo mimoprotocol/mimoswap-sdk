@@ -9,7 +9,7 @@ import {
   Price,
   sortedInsert,
   TradeType,
-} from '@/sdk-core';
+} from '../../sdk-core';
 import { ONE, ZERO } from '../constants';
 import invariant from 'tiny-invariant';
 

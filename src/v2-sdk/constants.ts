@@ -1,4 +1,4 @@
-import { Percent, V2_FACTORY_ADDRESSES, V2_INIT_CODE_HASH } from '@/sdk-core';
+import { Percent, V2_FACTORY_ADDRESSES, V2_INIT_CODE_HASH } from '../sdk-core';
 import JSBI from 'jsbi';
 
 /**
