@@ -1,16 +1,16 @@
-import { Percent, V2_FACTORY_ADDRESSES } from '@/sdk-core';
+import { Percent, V2_FACTORY_ADDRESSES, V2_INIT_CODE_HASH } from '@/sdk-core';
 import JSBI from 'jsbi';
 
 /**
  * @deprecated use FACTORY_ADDRESS_MAP instead
  */
 export const FACTORY_ADDRESS = '0xda257cBe968202Dea212bBB65aB49f174Da58b9D';
-
 export const FACTORY_ADDRESS_MAP: { [chainId: number]: string } =
   V2_FACTORY_ADDRESSES;
 
 export const INIT_CODE_HASH =
-  '0x00d8258f07455ccf2a627e421c1b67a5235293aa73a2d17be60109e9200cb37f';
+  '0x96e8ac4277198ff8b6f785478aa9a39f403cb768dd02cbee326c3e7da348845f';
+export const INIT_CODE_MAP: { [chainId: number]: string } = V2_INIT_CODE_HASH;
 
 export const MINIMUM_LIQUIDITY = JSBI.BigInt(1000);
 

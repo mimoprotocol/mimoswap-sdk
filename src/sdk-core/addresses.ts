@@ -60,6 +60,34 @@ export const V2_FACTORY_ADDRESSES: AddressMap = {
   [ChainId.BLAST]: '0x5C346464d33F90bABaf70dB6388507CC889C1070',
   [ChainId.IOTEX]: '0xda257cBe968202Dea212bBB65aB49f174Da58b9D',
 };
+
+export const V2_INIT_CODE_HASH: { [chainId: number]: string } = {
+  [ChainId.MAINNET]:
+    '0x96e8ac4277198ff8b6f785478aa9a39f403cb768dd02cbee326c3e7da348845f',
+  [ChainId.GOERLI]:
+    '0x96e8ac4277198ff8b6f785478aa9a39f403cb768dd02cbee326c3e7da348845f',
+  [ChainId.SEPOLIA]:
+    '0x96e8ac4277198ff8b6f785478aa9a39f403cb768dd02cbee326c3e7da348845f',
+  [ChainId.OPTIMISM]:
+    '0x96e8ac4277198ff8b6f785478aa9a39f403cb768dd02cbee326c3e7da348845f',
+  [ChainId.ARBITRUM_ONE]:
+    '0x96e8ac4277198ff8b6f785478aa9a39f403cb768dd02cbee326c3e7da348845f',
+  [ChainId.AVALANCHE]:
+    '0x96e8ac4277198ff8b6f785478aa9a39f403cb768dd02cbee326c3e7da348845f',
+  [ChainId.BASE]:
+    '0x96e8ac4277198ff8b6f785478aa9a39f403cb768dd02cbee326c3e7da348845f',
+  [ChainId.BNB]:
+    '0x96e8ac4277198ff8b6f785478aa9a39f403cb768dd02cbee326c3e7da348845f',
+  [ChainId.POLYGON]:
+    '0x96e8ac4277198ff8b6f785478aa9a39f403cb768dd02cbee326c3e7da348845f',
+  [ChainId.CELO]:
+    '0x96e8ac4277198ff8b6f785478aa9a39f403cb768dd02cbee326c3e7da348845f',
+  [ChainId.BLAST]:
+    '0x96e8ac4277198ff8b6f785478aa9a39f403cb768dd02cbee326c3e7da348845f',
+  [ChainId.IOTEX]:
+    '0x00d8258f07455ccf2a627e421c1b67a5235293aa73a2d17be60109e9200cb37f',
+};
+
 /**
  * @deprecated use V2_ROUTER_ADDRESSES instead
  */

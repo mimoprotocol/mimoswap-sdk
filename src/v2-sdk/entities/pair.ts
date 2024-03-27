@@ -21,6 +21,7 @@ import {
   FACTORY_ADDRESS_MAP,
   FIVE,
   INIT_CODE_HASH,
+  INIT_CODE_MAP,
   MINIMUM_LIQUIDITY,
   ONE,
   ONE_HUNDRED_PERCENT,
@@ -44,13 +45,14 @@ export const computePairAddress = ({
   const [token0, token1] = tokenA.sortsBefore(tokenB)
     ? [tokenA, tokenB]
     : [tokenB, tokenA]; // does safety checks
+  const initCodeHash = INIT_CODE_MAP[tokenA.chainId] ?? INIT_CODE_HASH;
   return getCreate2Address(
     factoryAddress,
     keccak256(
       ['bytes'],
       [pack(['address', 'address'], [token0.address, token1.address])]
     ),
-    INIT_CODE_HASH
+    initCodeHash
   );
 };
 export class Pair {
@@ -60,7 +62,6 @@ export class Pair {
   public static getAddress(tokenA: Token, tokenB: Token): string {
     const factoryAddress =
       FACTORY_ADDRESS_MAP[tokenA.chainId] ?? FACTORY_ADDRESS;
-    console.log('factoryAddress---->', factoryAddress);
     return computePairAddress({ factoryAddress, tokenA, tokenB });
   }
 

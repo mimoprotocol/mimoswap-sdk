@@ -10,6 +10,7 @@ It searches for the most efficient way to swap token A for token B, considering 
 
 ```
 pnpm jest test/trade.test.ts
+pnpm jest test/trade-iotex.test.ts
 ```
 
 ### Unit Tests
