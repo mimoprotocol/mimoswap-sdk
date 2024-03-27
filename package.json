@@ -24,8 +24,7 @@
     "fix:prettier": "prettier \"src/**/*.ts\" --write",
     "prepare-release": "run-s cov:check doc:html version doc:publish",
     "test": "jest test/unit",
-    "integ-test": "TS_NODE=true jest test/integ --testRunner='jest-circus/runner'",
-    "postinstall": "patch-package"
+    "integ-test": "TS_NODE=true jest test/integ --testRunner='jest-circus/runner'"
   },
   "engines": {
     "node": ">=10"
@@ -107,7 +106,6 @@
     "jest-sinon": "^1.0.4",
     "npm-run-all": "^4.1.5",
     "open-cli": "^6.0.1",
-    "patch-package": "^8.0.0",
     "prettier": "^2.1.1",
     "prettier-plugin-organize-imports": "^2.1.0",
     "sinon": "^11.1.2",
