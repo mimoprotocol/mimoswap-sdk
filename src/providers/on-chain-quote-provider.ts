@@ -734,9 +734,14 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
               approxGasUsedPerSuccessCall: 0,
             };
           }
-          throw new Error(
-            `Failed to get ${failedQuoteStates.length} quotes. Reasons: ${reasonForFailureStr}`
-          );
+          // throw new Error(
+          //   `Failed to get ${failedQuoteStates.length} quotes. Reasons: ${reasonForFailureStr}`
+          // );
+          return {
+            results: [],
+            blockNumber: BigNumber.from(0),
+            approxGasUsedPerSuccessCall: 0,
+          };
         }
 
         const callResults = _.map(
