@@ -702,7 +702,7 @@ export class AlphaRouter
     if (v2SubgraphProvider) {
       this.v2SubgraphProvider = v2SubgraphProvider;
     } else {
-      const poolUrl = chainId == 4689 ? `https://api.mimo.exchange/api/rest/poolsv2` : `https://cloudflare-ipfs.com/ipns/api.uniswap.org/v1/pools/v2/${chainName}.json`,
+      const poolUrl = chainId == 4689 ? `https://api.mimo.exchange/api/rest/poolsv2` : `https://cloudflare-ipfs.com/ipns/api.uniswap.org/v1/pools/v2/${chainName}.json`
       this.v2SubgraphProvider = new V2SubgraphProviderWithFallBacks([
         new CachingV2SubgraphProvider(
           chainId,
@@ -721,7 +721,7 @@ export class AlphaRouter
     if (v3SubgraphProvider) {
       this.v3SubgraphProvider = v3SubgraphProvider;
     } else {
-      const poolUrl = chainId == 4689 ? `https://api.mimo.exchange/api/rest/poolsv3` : `https://cloudflare-ipfs.com/ipns/api.uniswap.org/v1/pools/v3/${chainName}.json`,
+      const poolUrl = chainId == 4689 ? `https://api.mimo.exchange/api/rest/poolsv3` : `https://cloudflare-ipfs.com/ipns/api.uniswap.org/v1/pools/v3/${chainName}.json`
       this.v3SubgraphProvider = new V3SubgraphProviderWithFallBacks([
         new CachingV3SubgraphProvider(
           chainId,
