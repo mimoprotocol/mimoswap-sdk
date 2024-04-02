@@ -25,7 +25,7 @@ export class URISubgraphProvider<
     private uri: string,
     private timeout = 6000,
     private retries = 2
-  ) {}
+  ) { }
 
   public async getPools(): Promise<TSubgraphPool[]> {
     log.info(
@@ -56,7 +56,8 @@ export class URISubgraphProvider<
         }
         /* eslint-enable no-useless-catch */
 
-        const { data: poolsBuffer, status } = response;
+        const { status } = response;
+        const poolsBuffer = response.data?.data || response.data
 
         if (status != 200) {
           log.error({ response }, `Unabled to get pools from ${this.uri}.`);
