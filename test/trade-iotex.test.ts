@@ -38,7 +38,7 @@ describe('IOTEX Trade Test', () => {
       t2,
       TradeType.EXACT_INPUT,
       {
-        recipient: '0x1244e0dE028fd97A224e9d468474F99Af75EDb8b',
+        recipient: '0x0000000000000000000000000000000000000000',
         slippageTolerance: new Percent(50, 10_000),
         deadline: Math.floor(Date.now() / 1000 + 1800),
         type: SwapType.SWAP_ROUTER_02,

@@ -9,13 +9,7 @@ import {
   Percent,
 } from '../src/sdk-core';
 import { JsonRpcProvider } from '@ethersproject/providers';
-import {
-  AlphaRouter,
-  ID_TO_CHAIN_ID,
-  ID_TO_PROVIDER,
-  SwapType,
-  TO_PROTOCOL,
-} from '../src';
+import { AlphaRouter, ID_TO_CHAIN_ID, ID_TO_PROVIDER, SwapType } from '../src';
 import { Protocol } from '../src/router-sdk';
 import _ from 'lodash';
 
@@ -23,19 +17,6 @@ describe('MAINNET Trade Test', () => {
   const chainId = ID_TO_CHAIN_ID(ChainId.MAINNET);
   const chainProvider = ID_TO_PROVIDER(chainId);
   const provider = new JsonRpcProvider(chainProvider, chainId);
-  const protocolsStr = 'v2,v3';
-  let protocols: Protocol[] = [];
-  if (protocolsStr) {
-    try {
-      protocols = _.map(protocolsStr.split(','), (protocolStr) =>
-        TO_PROTOCOL(protocolStr)
-      );
-    } catch (err) {
-      throw new Error(
-        `Protocols invalid. Valid options: ${Object.values(Protocol)}`
-      );
-    }
-  }
 
   it(`trade-test`, async () => {
     const wbtc = new Token(
@@ -65,7 +46,7 @@ describe('MAINNET Trade Test', () => {
         type: SwapType.SWAP_ROUTER_02,
       },
       {
-        protocols,
+        protocols: [Protocol.V2, Protocol.V3],
       }
     );
     console.log('route=>', route);
