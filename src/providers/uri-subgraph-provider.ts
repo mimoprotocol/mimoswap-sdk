@@ -72,7 +72,7 @@ export class URISubgraphProvider<
           `Got subgraph pools from uri. Num: ${pools.length}`
         );
 
-        allPools = pools;
+        allPools = pools.filter(i => i.token0 && i.token1)
       },
       {
         retries: this.retries,
