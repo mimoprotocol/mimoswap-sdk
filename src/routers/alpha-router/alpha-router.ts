@@ -423,8 +423,7 @@ export type AlphaRouterConfig = {
 export class AlphaRouter
   implements
   IRouter<AlphaRouterConfig>,
-  ISwapToRatio<AlphaRouterConfig, SwapAndAddConfig>
-{
+  ISwapToRatio<AlphaRouterConfig, SwapAndAddConfig> {
   protected chainId: ChainId;
   protected provider: BaseProvider;
   protected multicall2Provider: UniswapMulticallProvider;
@@ -712,7 +711,7 @@ export class AlphaRouter
             undefined,
             0
           ),
-          new NodeJSCache(new NodeCache({ stdTTL: 300, useClones: false }))
+          new NodeJSCache(new NodeCache({ stdTTL: 15, useClones: false }))
         ),
         new StaticV2SubgraphProvider(chainId),
       ]);
@@ -721,7 +720,8 @@ export class AlphaRouter
     if (v3SubgraphProvider) {
       this.v3SubgraphProvider = v3SubgraphProvider;
     } else {
-      const poolUrl = chainId == 4689 ? `https://api.mimo.exchange/api/rest/poolsv3` : `https://cloudflare-ipfs.com/ipns/api.uniswap.org/v1/pools/v3/${chainName}.json`
+      const poolUrl = `https://cloudflare-ipfs.com/ipns/api.uniswap.org/v1/pools/v3/${chainName}.json`
+      // const poolUrl = chainId == 4689 ? `https://api.mimo.exchange/api/rest/poolsv3` : `https://cloudflare-ipfs.com/ipns/api.uniswap.org/v1/pools/v3/${chainName}.json`
       this.v3SubgraphProvider = new V3SubgraphProviderWithFallBacks([
         new CachingV3SubgraphProvider(
           chainId,
@@ -731,7 +731,7 @@ export class AlphaRouter
             undefined,
             0
           ),
-          new NodeJSCache(new NodeCache({ stdTTL: 300, useClones: false }))
+          new NodeJSCache(new NodeCache({ stdTTL: 15, useClones: false }))
         ),
         new StaticV3SubgraphProvider(chainId, this.v3PoolProvider),
       ]);

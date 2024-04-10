@@ -26,7 +26,7 @@ describe('IOTEX Trade Test', () => {
     );
     const t2 = new Token(
       chainId,
-      '0xb8744ae4032be5e5ef9fab94ee9c3bf38d5d2ae0',
+      '0x6c0bf4b53696b5434a0d21c7d13aa3cbf754913e',
       18
     );
     const router = new AlphaRouter({
