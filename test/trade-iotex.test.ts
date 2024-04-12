@@ -26,7 +26,7 @@ describe('IOTEX Trade Test', () => {
     );
     const t2 = new Token(
       chainId,
-      '0x6c0bf4b53696b5434a0d21c7d13aa3cbf754913e',
+      '0x599d33411af255250286c503d5145b61024bc176',
       18
     );
     const router = new AlphaRouter({
@@ -34,7 +34,7 @@ describe('IOTEX Trade Test', () => {
       provider,
     });
     const route = await router.route(
-      CurrencyAmount.fromRawAmount(t1, parseUnits('1', 18).toString()),
+      CurrencyAmount.fromRawAmount(t1, parseUnits('0.00001', 18).toString()),
       t2,
       TradeType.EXACT_INPUT,
       {
@@ -44,7 +44,7 @@ describe('IOTEX Trade Test', () => {
         type: SwapType.SWAP_ROUTER_02,
       },
       {
-        protocols: [Protocol.V2, Protocol.V3, Protocol.MIXED],
+        protocols: [Protocol.V3]
       }
     );
     console.log('route=>', route);
