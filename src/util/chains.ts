@@ -147,7 +147,7 @@ export const NATIVE_NAMES_BY_ID: { [chainId: number]: string[] } = {
     '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
   ],
   [ChainId.IOTEX]: [
-    'IOTEX',
+    'IOTX',
     'IOTEX',
     '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
   ],
@@ -658,6 +658,30 @@ class AvalancheNativeCurrency extends NativeCurrency {
   }
 }
 
+function isIoTeX(chainId: number): chainId is ChainId.IOTEX {
+  return chainId === ChainId.IOTEX;
+}
+
+class IoTeXNativeCurrency extends NativeCurrency {
+  equals(other: Currency): boolean {
+    return other.isNative && other.chainId === this.chainId;
+  }
+
+  get wrapped(): Token {
+    if (!isIoTeX(this.chainId)) throw new Error('Not IoTeX');
+    const nativeCurrency = WRAPPED_NATIVE_CURRENCY[this.chainId];
+    if (nativeCurrency) {
+      return nativeCurrency;
+    }
+    throw new Error(`Does not support this chain ${this.chainId}`);
+  }
+
+  public constructor(chainId: number) {
+    if (!isIoTeX(chainId)) throw new Error('Not IoTeX');
+    super(chainId, 18, 'IOTX', 'IoTeX');
+  }
+}
+
 export class ExtendedEther extends Ether {
   public get wrapped(): Token {
     if (this.chainId in WRAPPED_NATIVE_CURRENCY) {
@@ -695,6 +719,8 @@ export function nativeOnChain(chainId: number): NativeCurrency {
     cachedNativeCurrency[chainId] = new BnbNativeCurrency(chainId);
   } else if (isAvax(chainId)) {
     cachedNativeCurrency[chainId] = new AvalancheNativeCurrency(chainId);
+  } else if (isIoTeX(chainId)) {
+    cachedNativeCurrency[chainId] = new IoTeXNativeCurrency(chainId);
   } else {
     cachedNativeCurrency[chainId] = ExtendedEther.onChain(chainId);
   }
