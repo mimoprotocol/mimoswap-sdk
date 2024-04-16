@@ -1,15 +1,16 @@
 import dotenv from 'dotenv';
 dotenv.config();
-import { parseUnits } from 'viem';
-import {
-  ChainId,
-  Token,
-  CurrencyAmount,
-  TradeType,
-  Percent,
-} from '../src/sdk-core';
+import { ChainId, Token, TradeType, Percent, Currency } from '../src/sdk-core';
 import { JsonRpcProvider } from '@ethersproject/providers';
-import { AlphaRouter, ID_TO_CHAIN_ID, ID_TO_PROVIDER, SwapType } from '../src';
+import {
+  AlphaRouter,
+  ID_TO_CHAIN_ID,
+  ID_TO_PROVIDER,
+  NATIVE_NAMES_BY_ID,
+  SwapType,
+  nativeOnChain,
+  parseAmount,
+} from '../src';
 import { Protocol } from '../src/router-sdk';
 import _ from 'lodash';
 
@@ -19,11 +20,19 @@ describe('IOTEX Trade Test', () => {
   const provider = new JsonRpcProvider(chainProvider, chainId);
 
   it(`trade-iotex-test`, async () => {
-    const t1 = new Token(
-      chainId,
-      '0xa00744882684c3e4747faefd68d283ea44099d03',
-      18
-    );
+    // const t1 = new Token(
+    //   chainId,
+    //   '0xa00744882684c3e4747faefd68d283ea44099d03',
+    //   18
+    // );
+
+    const tokenInStr = 'IOTX'; // 0xa00744882684c3e4747faefd68d283ea44099d03
+    const t1: Currency = NATIVE_NAMES_BY_ID[chainId]!.includes(tokenInStr)
+      ? nativeOnChain(chainId)
+      : new Token(chainId, tokenInStr, 18);
+
+    console.log('t1 =>', t1);
+
     const t2 = new Token(
       chainId,
       '0x599d33411af255250286c503d5145b61024bc176',
@@ -33,8 +42,9 @@ describe('IOTEX Trade Test', () => {
       chainId,
       provider,
     });
+    const amountIn = parseAmount('0.00001', t1);
     const route = await router.route(
-      CurrencyAmount.fromRawAmount(t1, parseUnits('0.00001', 18).toString()),
+      amountIn,
       t2,
       TradeType.EXACT_INPUT,
       {
@@ -44,7 +54,7 @@ describe('IOTEX Trade Test', () => {
         type: SwapType.SWAP_ROUTER_02,
       },
       {
-        protocols: [Protocol.V3]
+        protocols: [Protocol.V2, Protocol.V3],
       }
     );
     console.log('route=>', route);
