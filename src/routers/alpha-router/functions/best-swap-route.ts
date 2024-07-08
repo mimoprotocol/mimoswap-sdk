@@ -43,7 +43,10 @@ export async function getBestSwapRoute(
   v2GasModel?: IGasModel<V2RouteWithValidQuote>,
   v3GasModel?: IGasModel<V3RouteWithValidQuote>,
   swapConfig?: SwapOptions
-): Promise<BestSwapRoute | null> {
+): Promise<{
+  bestSwapRoute: BestSwapRoute | null;
+  errMsg: string | null;
+}> {
   const now = Date.now();
 
   const { forceMixedRoutes } = routingConfig;
@@ -60,7 +63,10 @@ export async function getBestSwapRoute(
       return quotes.protocol === Protocol.MIXED;
     });
     if (!routesWithValidQuotes) {
-      return null;
+      return {
+        bestSwapRoute: null,
+        errMsg: 'No mixed routes found',
+      };
     }
   }
 
@@ -96,7 +102,11 @@ export async function getBestSwapRoute(
 
   // It is possible we were unable to find any valid route given the quotes.
   if (!swapRoute) {
-    return null;
+    return {
+      bestSwapRoute: null,
+      errMsg:
+        'It is possible we were unable to find any valid route given the quotes.',
+    };
   }
 
   // Due to potential loss of precision when taking percentages of the input it is possible that the sum of the amounts of each
@@ -143,7 +153,10 @@ export async function getBestSwapRoute(
     `Found best swap route. ${routeAmounts.length} split.`
   );
 
-  return swapRoute;
+  return {
+    bestSwapRoute: swapRoute,
+    errMsg: null,
+  };
 }
 
 export async function getBestSwapRouteBy(

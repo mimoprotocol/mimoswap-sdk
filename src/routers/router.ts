@@ -226,7 +226,10 @@ export abstract class IRouter<RoutingConfig> {
     swapType: TradeType,
     swapOptions?: SwapOptions,
     partialRoutingConfig?: Partial<RoutingConfig>
-  ): Promise<SwapRoute | null>;
+  ): Promise<{
+    swapRoute: SwapRoute | null;
+    errMsg: string | null;
+  }>;
 }
 
 export abstract class ISwapToRatio<RoutingConfig, SwapAndAddConfig> {
