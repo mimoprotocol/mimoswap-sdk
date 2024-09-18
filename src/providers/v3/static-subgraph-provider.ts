@@ -39,6 +39,7 @@ import {
   USDC_BNB,
   USDC_ETHEREUM_GNOSIS,
   USDC_GOERLI,
+  USDC_IOTEX,
   USDC_MAINNET,
   USDC_MOONBEAM,
   USDC_OPTIMISM,
@@ -48,6 +49,7 @@ import {
   USDT_ARBITRUM,
   USDT_BNB,
   USDT_GOERLI,
+  USDT_IOTEX,
   USDT_MAINNET,
   USDT_OPTIMISM,
   USDT_OPTIMISM_GOERLI,
@@ -58,6 +60,7 @@ import {
   WBTC_MOONBEAM,
   WBTC_OPTIMISM,
   WBTC_OPTIMISM_GOERLI,
+  WEN_IOTEX,
   WETH_POLYGON,
   WMATIC_POLYGON,
   WMATIC_POLYGON_MUMBAI,
@@ -79,7 +82,7 @@ const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
     USDT_MAINNET,
     WBTC_MAINNET,
   ],
-  [ChainId.IOTEX]: [WRAPPED_NATIVE_CURRENCY[ChainId.IOTEX]!],
+  [ChainId.IOTEX]: [WRAPPED_NATIVE_CURRENCY[ChainId.IOTEX]!, USDT_IOTEX, USDC_IOTEX, WEN_IOTEX],
   [ChainId.GOERLI]: [
     WRAPPED_NATIVE_CURRENCY[ChainId.GOERLI]!,
     USDT_GOERLI,
@@ -184,7 +187,7 @@ export class StaticV3SubgraphProvider implements IV3SubgraphProvider {
   constructor(
     private chainId: ChainId,
     private poolProvider: IV3PoolProvider
-  ) {}
+  ) { }
 
   public async getPools(
     tokenIn?: Token,

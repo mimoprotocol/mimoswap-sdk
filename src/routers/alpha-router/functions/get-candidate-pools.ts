@@ -38,6 +38,7 @@ import {
   USDC_BASE,
   USDC_BNB,
   USDC_ETHEREUM_GNOSIS,
+  USDC_IOTEX,
   USDC_MAINNET,
   USDC_MOONBEAM,
   USDC_OPTIMISM,
@@ -56,6 +57,7 @@ import {
   WBTC_MOONBEAM,
   WBTC_OPTIMISM,
   WBTC_OPTIMISM_GOERLI,
+  WEN_IOTEX,
   WGLMR_MOONBEAM,
   WMATIC_POLYGON,
   WMATIC_POLYGON_MUMBAI,
@@ -188,7 +190,7 @@ const baseTokensByChain: { [chainId in ChainId]?: Token[] } = {
   [ChainId.AVALANCHE]: [DAI_AVAX, USDC_AVAX],
   [ChainId.BASE]: [USDC_BASE],
   [ChainId.BLAST]: [WRAPPED_NATIVE_CURRENCY[ChainId.BLAST]!, USDB_BLAST],
-  [ChainId.IOTEX]: [WRAPPED_NATIVE_CURRENCY[ChainId.IOTEX]!, USDT_IOTEX],
+  [ChainId.IOTEX]: [WRAPPED_NATIVE_CURRENCY[ChainId.IOTEX]!, USDT_IOTEX, USDC_IOTEX, WEN_IOTEX],
 };
 
 class SubcategorySelectionPools<SubgraphPool> {
@@ -1445,7 +1447,7 @@ export async function getMixedRouteCandidatePools({
       ),
     },
   };
-
+  console.log(poolsBySelection)
   return {
     V2poolAccessor,
     V3poolAccessor,

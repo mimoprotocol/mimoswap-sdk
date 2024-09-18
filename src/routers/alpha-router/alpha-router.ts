@@ -422,9 +422,8 @@ export type AlphaRouterConfig = {
 
 export class AlphaRouter
   implements
-    IRouter<AlphaRouterConfig>,
-    ISwapToRatio<AlphaRouterConfig, SwapAndAddConfig>
-{
+  IRouter<AlphaRouterConfig>,
+  ISwapToRatio<AlphaRouterConfig, SwapAndAddConfig> {
   protected chainId: ChainId;
   protected provider: BaseProvider;
   protected multicall2Provider: UniswapMulticallProvider;
@@ -702,10 +701,14 @@ export class AlphaRouter
     if (v2SubgraphProvider) {
       this.v2SubgraphProvider = v2SubgraphProvider;
     } else {
+<<<<<<< HEAD
       const poolUrl =
         chainId == 4689
           ? `https://api.mimo.exchange/api/rest/poolsv2`
           : `https://cloudflare-ipfs.com/ipns/api.uniswap.org/v1/pools/v2/${chainName}.json`;
+=======
+      const poolUrl = chainId == 1 ? `https://api.mimo.exchange/api/rest/poolsv2` : `https://cloudflare-ipfs.com/ipns/api.uniswap.org/v1/pools/v2/${chainName}.json`
+>>>>>>> 1ba3e80 (update sdk)
       this.v2SubgraphProvider = new V2SubgraphProviderWithFallBacks([
         new CachingV2SubgraphProvider(
           chainId,
@@ -719,8 +722,8 @@ export class AlphaRouter
     if (v3SubgraphProvider) {
       this.v3SubgraphProvider = v3SubgraphProvider;
     } else {
-      const poolUrl = `https://cloudflare-ipfs.com/ipns/api.uniswap.org/v1/pools/v3/${chainName}.json`;
-      // const poolUrl = chainId == 4689 ? `https://api.mimo.exchange/api/rest/poolsv3` : `https://cloudflare-ipfs.com/ipns/api.uniswap.org/v1/pools/v3/${chainName}.json`
+      // const poolUrl = `https://cloudflare-ipfs.com/ipns/api.uniswap.org/v1/pools/v3/${chainName}.json`
+      const poolUrl = chainId == 4689 ? `https://api.mimo.exchange/api/rest/poolsv3` : `https://cloudflare-ipfs.com/ipns/api.uniswap.org/v1/pools/v3/${chainName}.json`
       this.v3SubgraphProvider = new V3SubgraphProviderWithFallBacks([
         new CachingV3SubgraphProvider(
           chainId,
@@ -1087,8 +1090,8 @@ export class AlphaRouter
     // const gasTokenAccessor = await this.tokenProvider.getTokens([routingConfig.gasToken!]);
     const gasToken = routingConfig.gasToken
       ? (
-          await this.tokenProvider.getTokens([routingConfig.gasToken])
-        ).getTokenByAddress(routingConfig.gasToken)
+        await this.tokenProvider.getTokens([routingConfig.gasToken])
+      ).getTokenByAddress(routingConfig.gasToken)
       : undefined;
 
     const providerConfig: GasModelProviderConfig = {
@@ -1432,7 +1435,6 @@ export class AlphaRouter
     );
 
     let methodParameters: MethodParameters | undefined;
-
     // If user provided recipient, deadline etc. we also generate the calldata required to execute
     // the swap and return it too.
     if (swapConfig) {
@@ -1783,6 +1785,7 @@ export class AlphaRouter
           Date.now() - beforeGetCandidates,
           MetricLoggerUnit.Milliseconds
         );
+        console.log({ candidatePools })
         return candidatePools;
       });
     }
@@ -1812,6 +1815,7 @@ export class AlphaRouter
           Date.now() - beforeGetCandidates,
           MetricLoggerUnit.Milliseconds
         );
+        console.log("v2", candidatePools)
         return candidatePools;
       });
     }
@@ -1932,7 +1936,7 @@ export class AlphaRouter
                   Date.now() - beforeGetRoutesThenQuotes,
                   MetricLoggerUnit.Milliseconds
                 );
-
+                console.log("mixed", { result })
                 return result;
               })
         )
@@ -2052,31 +2056,31 @@ export class AlphaRouter
     const nativeCurrency = WRAPPED_NATIVE_CURRENCY[this.chainId];
     const nativeAndQuoteTokenV3PoolPromise = !quoteToken.equals(nativeCurrency)
       ? getHighestLiquidityV3NativePool(
-          quoteToken,
-          this.v3PoolProvider,
-          providerConfig
-        )
+        quoteToken,
+        this.v3PoolProvider,
+        providerConfig
+      )
       : Promise.resolve(null);
     const nativeAndAmountTokenV3PoolPromise = !amountToken.equals(
       nativeCurrency
     )
       ? getHighestLiquidityV3NativePool(
-          amountToken,
-          this.v3PoolProvider,
-          providerConfig
-        )
+        amountToken,
+        this.v3PoolProvider,
+        providerConfig
+      )
       : Promise.resolve(null);
 
     // If a specific gas token is specified in the provider config
     // fetch the highest liq V3 pool with it and the native currency
     const nativeAndSpecifiedGasTokenV3PoolPromise =
       providerConfig?.gasToken &&
-      !providerConfig?.gasToken.equals(nativeCurrency)
+        !providerConfig?.gasToken.equals(nativeCurrency)
         ? getHighestLiquidityV3NativePool(
-            providerConfig?.gasToken,
-            this.v3PoolProvider,
-            providerConfig
-          )
+          providerConfig?.gasToken,
+          this.v3PoolProvider,
+          providerConfig
+        )
         : Promise.resolve(null);
 
     const [
@@ -2100,15 +2104,15 @@ export class AlphaRouter
 
     const v2GasModelPromise = this.v2Supported?.includes(this.chainId)
       ? this.v2GasModelFactory
-          .buildGasModel({
-            chainId: this.chainId,
-            gasPriceWei,
-            poolProvider: this.v2PoolProvider,
-            token: quoteToken,
-            l2GasDataProvider: this.l2GasDataProvider,
-            providerConfig: providerConfig,
-          })
-          .catch((_) => undefined) // If v2 model throws uncaught exception, we return undefined v2 gas model, so there's a chance v3 route can go through
+        .buildGasModel({
+          chainId: this.chainId,
+          gasPriceWei,
+          poolProvider: this.v2PoolProvider,
+          token: quoteToken,
+          l2GasDataProvider: this.l2GasDataProvider,
+          providerConfig: providerConfig,
+        })
+        .catch((_) => undefined) // If v2 model throws uncaught exception, we return undefined v2 gas model, so there's a chance v3 route can go through
       : Promise.resolve(undefined);
 
     const v3GasModelPromise = this.v3GasModelFactory.buildGasModel({

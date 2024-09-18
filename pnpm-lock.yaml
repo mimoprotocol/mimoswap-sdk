@@ -32,6 +32,9 @@ dependencies:
   '@ethersproject/units':
     specifier: ^5.7.0
     version: 5.7.0
+  '@mimoprotocol/universal-router-sdk':
+    specifier: ^0.0.1
+    version: 0.0.1(hardhat@2.22.2)
   '@types/brotli':
     specifier: ^1.3.4
     version: 1.3.4
@@ -50,9 +53,6 @@ dependencies:
   '@uniswap/universal-router':
     specifier: ^1.6.0
     version: 1.6.0
-  '@uniswap/universal-router-sdk':
-    specifier: ^1.8.2
-    version: 1.8.2(hardhat@2.22.2)
   '@uniswap/v3-sdk':
     specifier: ^3.11.0
     version: 3.11.0(hardhat@2.22.2)
@@ -1298,6 +1298,25 @@ packages:
       tweetnacl: 1.0.3
       tweetnacl-util: 0.15.1
 
+  /@mimoprotocol/universal-router-sdk@0.0.1(hardhat@2.22.2):
+    resolution: {integrity: sha512-ud2IYNKZDWB8UjD6CBnf+kQsBViHjf7/FMeONpY22jqW+wvdtZOdXdX0TNi5vdJzUJStDe2/8sfio2XjpNzItg==}
+    engines: {node: '>=14'}
+    dependencies:
+      '@uniswap/permit2-sdk': 1.3.0
+      '@uniswap/router-sdk': 1.11.1(hardhat@2.22.2)
+      '@uniswap/sdk-core': 5.3.1
+      '@uniswap/universal-router': 1.6.0
+      '@uniswap/v2-sdk': 4.4.1
+      '@uniswap/v3-sdk': 3.13.1(hardhat@2.22.2)
+      '@uniswap/v4-sdk': 1.0.0(hardhat@2.22.2)
+      bignumber.js: 9.1.2
+      ethers: 5.7.2
+    transitivePeerDependencies:
+      - bufferutil
+      - hardhat
+      - utf-8-validate
+    dev: false
+
   /@noble/curves@1.2.0:
     resolution: {integrity: sha512-oYclrNgRaM9SsBUBVbb8M6DTV7ZHRTKugureoYEncY5c65HOmRzvSiTE3y5CYaPYJA/GVkrhXEoF0M3Ya9PMnw==}
     dependencies:
@@ -2188,14 +2207,25 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@uniswap/router-sdk@1.9.0(hardhat@2.22.2):
-    resolution: {integrity: sha512-UeQrrjhOIzPDxHzkF341Sd9PjIzJwiHFQhaEYFIWNE4yC/wzSiISxc5Ebp94p/KVmettoFRa+682yn9IZBhFTA==}
+  /@uniswap/permit2-sdk@1.3.0:
+    resolution: {integrity: sha512-LstYQWP47dwpQrgqBJ+ysFstne9LgI5FGiKHc2ewjj91MTY8Mq1reocu6U/VDncdR5ef30TUOcZ7gPExRY8r6Q==}
+    dependencies:
+      ethers: 5.7.2
+      tiny-invariant: 1.3.3
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+    dev: false
+
+  /@uniswap/router-sdk@1.11.1(hardhat@2.22.2):
+    resolution: {integrity: sha512-Nz0h5YUhEUusZ06C8nWIjQssvwche1dxtVY7EEx9eplgQqB9flGHJ8hxqnpEx+h1GB78bo7Qt/aFIiEVL28R8Q==}
     dependencies:
       '@ethersproject/abi': 5.7.0
-      '@uniswap/sdk-core': 4.2.0
+      '@uniswap/sdk-core': 5.3.1
       '@uniswap/swap-router-contracts': 1.3.1(hardhat@2.22.2)
-      '@uniswap/v2-sdk': 4.3.0
-      '@uniswap/v3-sdk': 3.11.0(hardhat@2.22.2)
+      '@uniswap/v2-sdk': 4.4.1
+      '@uniswap/v3-sdk': 3.13.1(hardhat@2.22.2)
+      '@uniswap/v4-sdk': 1.0.0(hardhat@2.22.2)
     transitivePeerDependencies:
       - hardhat
     dev: false
@@ -2205,6 +2235,21 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       '@ethersproject/address': 5.7.0
+      big.js: 5.2.2
+      decimal.js-light: 2.5.1
+      jsbi: 3.2.5
+      tiny-invariant: 1.3.3
+      toformat: 2.0.0
+    dev: false
+
+  /@uniswap/sdk-core@5.3.1:
+    resolution: {integrity: sha512-XLJY8PcMZnKYBGLABJnLXcr3EgWql3mmnmpHyV1/MmEh9pLJLHYz4HLwVHb8pGDCqpOFX0e+Ei44/qhC7Q5Dsg==}
+    engines: {node: '>=10'}
+    dependencies:
+      '@ethersproject/address': 5.7.0
+      '@ethersproject/bytes': 5.7.0
+      '@ethersproject/keccak256': 5.7.0
+      '@ethersproject/strings': 5.7.0
       big.js: 5.2.2
       decimal.js-light: 2.5.1
       jsbi: 3.2.5
@@ -2229,24 +2274,6 @@ packages:
   /@uniswap/token-lists@1.0.0-beta.33:
     resolution: {integrity: sha512-JQkXcpRI3jFG8y3/CGC4TS8NkDgcxXaOQuYW8Qdvd6DcDiIyg2vVYCG9igFEzF0G6UvxgHkBKC7cWCgzZNYvQg==}
     engines: {node: '>=10'}
-    dev: false
-
-  /@uniswap/universal-router-sdk@1.8.2(hardhat@2.22.2):
-    resolution: {integrity: sha512-u7ZnKxf4NH2J3DoTOOueh2rNruQku1JpLTRGl+/Kvol1NKTXdMAkaTTNRcwBzSpolpfbldK4pAIuwDza7gWzDw==}
-    engines: {node: '>=14'}
-    dependencies:
-      '@uniswap/permit2-sdk': 1.2.0
-      '@uniswap/router-sdk': 1.9.0(hardhat@2.22.2)
-      '@uniswap/sdk-core': 4.2.0
-      '@uniswap/universal-router': 1.6.0
-      '@uniswap/v2-sdk': 4.3.0
-      '@uniswap/v3-sdk': 3.11.0(hardhat@2.22.2)
-      bignumber.js: 9.1.2
-      ethers: 5.7.2
-    transitivePeerDependencies:
-      - bufferutil
-      - hardhat
-      - utf-8-validate
     dev: false
 
   /@uniswap/universal-router@1.6.0:
@@ -2275,13 +2302,13 @@ packages:
       '@uniswap/v2-core': 1.0.0
     dev: true
 
-  /@uniswap/v2-sdk@4.3.0:
-    resolution: {integrity: sha512-FUKkgo/1TQc/HuWWgsoy1FIcsLkKwm3Nnor88yfn2NH8ER5RK/wDF9UzDDilYh3yyf2mAnaY89CKFhcIl+lbBQ==}
+  /@uniswap/v2-sdk@4.4.1:
+    resolution: {integrity: sha512-mU0YNgpm7Nmh3RSlcltluYVECdBcfQQIIQIDCM49Rog8ZnW4wp5QqEYkVjgAuqdu1mwLkMDMQUhzhtC0Z2Df6g==}
     engines: {node: '>=10'}
     dependencies:
       '@ethersproject/address': 5.7.0
       '@ethersproject/solidity': 5.7.0
-      '@uniswap/sdk-core': 4.2.0
+      '@uniswap/sdk-core': 5.3.1
       tiny-invariant: 1.3.3
       tiny-warning: 1.0.3
     dev: false
@@ -2321,6 +2348,38 @@ packages:
       - hardhat
     dev: false
 
+  /@uniswap/v3-sdk@3.12.0(hardhat@2.22.2):
+    resolution: {integrity: sha512-mUCg9HLKl20h6W8+QtELqN/uaO47/KDSf+EOht+W3C6jt2eGuzSANqS2CY7i8MsAsnZ+MjPhmN+JTOIvf7azfA==}
+    engines: {node: '>=10'}
+    dependencies:
+      '@ethersproject/abi': 5.7.0
+      '@ethersproject/solidity': 5.7.0
+      '@uniswap/sdk-core': 5.3.1
+      '@uniswap/swap-router-contracts': 1.3.1(hardhat@2.22.2)
+      '@uniswap/v3-periphery': 1.4.4
+      '@uniswap/v3-staker': 1.0.0
+      tiny-invariant: 1.3.3
+      tiny-warning: 1.0.3
+    transitivePeerDependencies:
+      - hardhat
+    dev: false
+
+  /@uniswap/v3-sdk@3.13.1(hardhat@2.22.2):
+    resolution: {integrity: sha512-MCc96HrUZy17DINwrGnMtCvr+yXQlWUJJVaIiRRKe1DQzSuv97/G4lzM+zAaSymrxbR2qnHHWL5vMFjmwzCN9Q==}
+    engines: {node: '>=10'}
+    dependencies:
+      '@ethersproject/abi': 5.7.0
+      '@ethersproject/solidity': 5.7.0
+      '@uniswap/sdk-core': 5.3.1
+      '@uniswap/swap-router-contracts': 1.3.1(hardhat@2.22.2)
+      '@uniswap/v3-periphery': 1.4.4
+      '@uniswap/v3-staker': 1.0.0
+      tiny-invariant: 1.3.3
+      tiny-warning: 1.0.3
+    transitivePeerDependencies:
+      - hardhat
+    dev: false
+
   /@uniswap/v3-staker@1.0.0:
     resolution: {integrity: sha512-JV0Qc46Px5alvg6YWd+UIaGH9lDuYG/Js7ngxPit1SPaIP30AlVer1UYB7BRYeUVVxE+byUyIeN5jeQ7LLDjIw==}
     engines: {node: '>=10'}
@@ -2329,6 +2388,19 @@ packages:
       '@openzeppelin/contracts': 3.4.1-solc-0.7-2
       '@uniswap/v3-core': 1.0.0
       '@uniswap/v3-periphery': 1.4.4
+    dev: false
+
+  /@uniswap/v4-sdk@1.0.0(hardhat@2.22.2):
+    resolution: {integrity: sha512-zC4cfOY9pFA6PUOARvmkAndOR0r5yiAwwcaFBxOoZe2kXLoh5wGH3svDZCQ4ZLpiPOevUPl+NXXC/KCEErbw2g==}
+    engines: {node: '>=14'}
+    dependencies:
+      '@ethersproject/solidity': 5.7.0
+      '@uniswap/sdk-core': 5.3.1
+      '@uniswap/v3-sdk': 3.12.0(hardhat@2.22.2)
+      tiny-invariant: 1.3.3
+      tiny-warning: 1.0.3
+    transitivePeerDependencies:
+      - hardhat
     dev: false
 
   /abab@2.0.6:

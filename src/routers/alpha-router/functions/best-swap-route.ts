@@ -597,7 +597,7 @@ export async function getBestSwapRouteBy(
       // TODO: will error if gasToken has decimals greater than usdToken
       const decimalsDiff =
         usdTokenDecimals - routeWithValidQuote.gasCostInUSD.currency.decimals;
-
+      console.log({ decimalsDiff, gasTOken: routeWithValidQuote.gasCostInUSD.currency })
       if (decimalsDiff == 0) {
         return CurrencyAmount.fromRawAmount(
           usdToken,
