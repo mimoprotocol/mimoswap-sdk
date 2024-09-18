@@ -101,7 +101,14 @@ export const USDC_IOTEX = new Token(
   '0x3b2bf2b523f54c4e454f08aa286d03115aff326c',
   6,
   'USDC',
-  'USD//C'
+  'USDC'
+);
+export const WEN_IOTEX = new Token(
+  ChainId.IOTEX,
+  '0x6c0bf4b53696b5434a0d21c7d13aa3cbf754913e',
+  18,
+  'WEN',
+  'WEN'
 );
 export const USDT_IOTEX = new Token(
   ChainId.IOTEX,
@@ -682,7 +689,7 @@ export class TokenProvider implements ITokenProvider {
   constructor(
     private chainId: ChainId,
     protected multicall2Provider: IMulticallProvider
-  ) {}
+  ) { }
 
   private async getTokenSymbol(
     addresses: string[],
@@ -827,10 +834,8 @@ export class TokenProvider implements ITokenProvider {
       }
 
       log.info(
-        `Got token symbol and decimals for ${
-          Object.values(addressToToken).length
-        } out of ${addresses.length} tokens on-chain ${
-          providerConfig ? `as of: ${providerConfig?.blockNumber}` : ''
+        `Got token symbol and decimals for ${Object.values(addressToToken).length
+        } out of ${addresses.length} tokens on-chain ${providerConfig ? `as of: ${providerConfig?.blockNumber}` : ''
         }`
       );
     }
@@ -904,6 +909,8 @@ export const USDT_ON = (chainId: ChainId): Token => {
       return USDT_ARBITRUM;
     case ChainId.BNB:
       return USDT_BNB;
+    case ChainId.IOTEX:
+      return USDC_IOTEX
     default:
       throw new Error(`Chain id: ${chainId} not supported`);
   }
@@ -945,6 +952,8 @@ export const USDC_ON = (chainId: ChainId): Token => {
       return USDC_BASE;
     case ChainId.BASE_GOERLI:
       return USDC_BASE_GOERLI;
+    case ChainId.IOTEX:
+      return USDC_IOTEX
     default:
       throw new Error(`Chain id: ${chainId} not supported`);
   }

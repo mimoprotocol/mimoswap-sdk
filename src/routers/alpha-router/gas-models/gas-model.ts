@@ -32,6 +32,7 @@ import {
   USDC_CELO,
   USDC_ETHEREUM_GNOSIS,
   USDC_GOERLI,
+  USDC_IOTEX,
   // USDC_IOTEX,
   USDC_MAINNET,
   USDC_MOONBEAM,
@@ -56,6 +57,7 @@ import {
   USDT_OPTIMISM_GOERLI,
   USDT_OPTIMISM_SEPOLIA,
   WBTC_GOERLI,
+  WEN_IOTEX,
 } from '../../../providers/token-provider';
 import { IV2PoolProvider } from '../../../providers/v2/pool-provider';
 import {
@@ -117,7 +119,7 @@ export const usdGasTokensByChain: { [chainId in ChainId]?: Token[] } = {
   ],
   [ChainId.BASE]: [USDC_BASE, USDC_NATIVE_BASE],
   [ChainId.BLAST]: [USDB_BLAST],
-  [ChainId.IOTEX]: [USDT_IOTEX],
+  [ChainId.IOTEX]: [WEN_IOTEX, USDT_IOTEX, USDC_IOTEX],
 };
 
 export type L1ToL2GasCosts = {

@@ -9,7 +9,8 @@ import { ChainId, Currency, TradeType } from '../sdk-core';
 import {
   SwapRouter as UniversalRouter,
   UNIVERSAL_ROUTER_ADDRESS,
-} from '@uniswap/universal-router-sdk';
+  UniversalRouterVersion,
+} from '@mimoprotocol/universal-router-sdk';
 import { Route as V2RouteRaw } from '../v2-sdk';
 import { Route as V3RouteRaw } from '@uniswap/v3-sdk';
 import _ from 'lodash';
@@ -237,7 +238,7 @@ export function buildSwapMethodParameters(
   if (swapConfig.type == SwapType.UNIVERSAL_ROUTER) {
     return {
       ...UniversalRouter.swapERC20CallParameters(trade, swapConfig),
-      to: UNIVERSAL_ROUTER_ADDRESS(chainId),
+      to: UNIVERSAL_ROUTER_ADDRESS(UniversalRouterVersion.V2_0, chainId),
     };
   } else if (swapConfig.type == SwapType.SWAP_ROUTER_02) {
     const { recipient, slippageTolerance, deadline, inputTokenPermit } =
