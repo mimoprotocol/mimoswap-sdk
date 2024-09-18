@@ -19,8 +19,8 @@ import {
 import {
   PERMIT2_ADDRESS,
   UNIVERSAL_ROUTER_ADDRESS as UNIVERSAL_ROUTER_ADDRESS_BY_CHAIN,
-} from '@uniswap/universal-router-sdk';
-import { Permit2Permit } from '@uniswap/universal-router-sdk/dist/utils/inputTokens';
+} from '@mimoprotocol/universal-router-sdk';
+import { Permit2Permit } from '@mimoprotocol/universal-router-sdk/dist/utils/inputTokens';
 import { Pair } from '../../../../src/v2-sdk';
 import { encodeSqrtRatioX96, FeeAmount, Pool } from '@uniswap/v3-sdk';
 import bunyan from 'bunyan';
@@ -439,7 +439,7 @@ describe('alpha router integration', () => {
             expandDecimals(
               quoteGasAndPortionAdjusted.currency,
               targetQuoteGasAndPortionAdjustedDecimalsAmount -
-                acceptablePortionDifference
+              acceptablePortionDifference
             )
           )
         )
@@ -451,7 +451,7 @@ describe('alpha router integration', () => {
             expandDecimals(
               quoteGasAndPortionAdjusted.currency,
               targetQuoteGasAndPortionAdjustedDecimalsAmount +
-                acceptablePortionDifference
+              acceptablePortionDifference
             )
           )
         )
@@ -2722,8 +2722,8 @@ describe('alpha router integration', () => {
               const originalAmount =
                 (tokenIn.symbol === 'WBTC' &&
                   tradeType === TradeType.EXACT_INPUT) ||
-                (tokenOut.symbol === 'WBTC' &&
-                  tradeType === TradeType.EXACT_OUTPUT)
+                  (tokenOut.symbol === 'WBTC' &&
+                    tradeType === TradeType.EXACT_OUTPUT)
                   ? '1'
                   : '100';
               const amount =
@@ -2749,9 +2749,9 @@ describe('alpha router integration', () => {
                   flatFee:
                     tradeType == TradeType.EXACT_OUTPUT
                       ? {
-                          amount: amount.multiply(bps).quotient.toString(),
-                          recipient: FLAT_PORTION.recipient,
-                        }
+                        amount: amount.multiply(bps).quotient.toString(),
+                        recipient: FLAT_PORTION.recipient,
+                      }
                       : undefined,
                 },
                 {
@@ -3728,8 +3728,8 @@ describe('quote for other networks', () => {
                   ? parseAmount('10', tokenIn)
                   : parseAmount('10', tokenOut)
                 : tradeType == TradeType.EXACT_INPUT
-                ? parseAmount('1', tokenIn)
-                : parseAmount('1', tokenOut);
+                  ? parseAmount('1', tokenIn)
+                  : parseAmount('1', tokenOut);
 
             const swap = await alphaRouter.route(
               amount,
@@ -3868,19 +3868,19 @@ describe('quote for other networks', () => {
               const swapWithSimulationOptions: SwapOptions =
                 chain == ChainId.GOERLI
                   ? {
-                      type: SwapType.SWAP_ROUTER_02,
-                      recipient: WHALES(tokenIn),
-                      slippageTolerance: SLIPPAGE,
-                      deadline: parseDeadline(360),
-                      simulate: { fromAddress: WHALES(tokenIn) },
-                    }
+                    type: SwapType.SWAP_ROUTER_02,
+                    recipient: WHALES(tokenIn),
+                    slippageTolerance: SLIPPAGE,
+                    deadline: parseDeadline(360),
+                    simulate: { fromAddress: WHALES(tokenIn) },
+                  }
                   : {
-                      type: SwapType.UNIVERSAL_ROUTER,
-                      recipient: WHALES(tokenIn),
-                      slippageTolerance: SLIPPAGE,
-                      deadlineOrPreviousBlockhash: parseDeadline(360),
-                      simulate: { fromAddress: WHALES(tokenIn) },
-                    };
+                    type: SwapType.UNIVERSAL_ROUTER,
+                    recipient: WHALES(tokenIn),
+                    slippageTolerance: SLIPPAGE,
+                    deadlineOrPreviousBlockhash: parseDeadline(360),
+                    simulate: { fromAddress: WHALES(tokenIn) },
+                  };
 
               const swapWithSimulation = await alphaRouter.route(
                 amount,
@@ -3925,11 +3925,11 @@ describe('quote for other networks', () => {
                 swap!.estimatedGasUsed
               )
                 ? swapWithSimulation!.estimatedGasUsed.sub(
-                    swap!.estimatedGasUsed
-                  )
+                  swap!.estimatedGasUsed
+                )
                 : swap!.estimatedGasUsed.sub(
-                    swapWithSimulation!.estimatedGasUsed
-                  );
+                  swapWithSimulation!.estimatedGasUsed
+                );
 
               // We will rely on Tenderly gas estimate as source of truth against SOR non-simulated gas estimate accuracy.
               // This is the only reliable and long-term feasible test assertion approach.
@@ -3985,19 +3985,19 @@ describe('quote for other networks', () => {
               const swapWithSimulationOptions: SwapOptions =
                 chain == ChainId.GOERLI
                   ? {
-                      type: SwapType.SWAP_ROUTER_02,
-                      recipient: WHALES(tokenIn),
-                      slippageTolerance: SLIPPAGE,
-                      deadline: parseDeadline(360),
-                      simulate: { fromAddress: WHALES(tokenIn) },
-                    }
+                    type: SwapType.SWAP_ROUTER_02,
+                    recipient: WHALES(tokenIn),
+                    slippageTolerance: SLIPPAGE,
+                    deadline: parseDeadline(360),
+                    simulate: { fromAddress: WHALES(tokenIn) },
+                  }
                   : {
-                      type: SwapType.UNIVERSAL_ROUTER,
-                      recipient: WHALES(tokenIn),
-                      slippageTolerance: SLIPPAGE,
-                      deadlineOrPreviousBlockhash: parseDeadline(360),
-                      simulate: { fromAddress: WHALES(tokenIn) },
-                    };
+                    type: SwapType.UNIVERSAL_ROUTER,
+                    recipient: WHALES(tokenIn),
+                    slippageTolerance: SLIPPAGE,
+                    deadlineOrPreviousBlockhash: parseDeadline(360),
+                    simulate: { fromAddress: WHALES(tokenIn) },
+                  };
 
               const swapWithSimulation = await alphaRouter.route(
                 amount,
@@ -4042,11 +4042,11 @@ describe('quote for other networks', () => {
                 swap!.estimatedGasUsed
               )
                 ? swapWithSimulation!.estimatedGasUsed.sub(
-                    swap!.estimatedGasUsed
-                  )
+                  swap!.estimatedGasUsed
+                )
                 : swap!.estimatedGasUsed.sub(
-                    swapWithSimulation!.estimatedGasUsed
-                  );
+                  swapWithSimulation!.estimatedGasUsed
+                );
 
               // We will rely on Tenderly gas estimate as source of truth against SOR non-simulated gas estimate accuracy.
               // This is the only reliable and long-term feasible test assertion approach.
@@ -4098,19 +4098,19 @@ describe('quote for other networks', () => {
               const swapWithSimulationOptions: SwapOptions =
                 chain == ChainId.GOERLI
                   ? {
-                      type: SwapType.SWAP_ROUTER_02,
-                      recipient: WHALES(tokenIn),
-                      slippageTolerance: SLIPPAGE,
-                      deadline: parseDeadline(360),
-                      simulate: { fromAddress: WHALES(tokenIn) },
-                    }
+                    type: SwapType.SWAP_ROUTER_02,
+                    recipient: WHALES(tokenIn),
+                    slippageTolerance: SLIPPAGE,
+                    deadline: parseDeadline(360),
+                    simulate: { fromAddress: WHALES(tokenIn) },
+                  }
                   : {
-                      type: SwapType.UNIVERSAL_ROUTER,
-                      recipient: WHALES(tokenIn),
-                      slippageTolerance: SLIPPAGE,
-                      deadlineOrPreviousBlockhash: parseDeadline(360),
-                      simulate: { fromAddress: WHALES(tokenIn) },
-                    };
+                    type: SwapType.UNIVERSAL_ROUTER,
+                    recipient: WHALES(tokenIn),
+                    slippageTolerance: SLIPPAGE,
+                    deadlineOrPreviousBlockhash: parseDeadline(360),
+                    simulate: { fromAddress: WHALES(tokenIn) },
+                  };
 
               const swapWithSimulation = await alphaRouter.route(
                 amount,
@@ -4155,11 +4155,11 @@ describe('quote for other networks', () => {
                 swap!.estimatedGasUsed
               )
                 ? swapWithSimulation!.estimatedGasUsed.sub(
-                    swap!.estimatedGasUsed
-                  )
+                  swap!.estimatedGasUsed
+                )
                 : swap!.estimatedGasUsed.sub(
-                    swapWithSimulation!.estimatedGasUsed
-                  );
+                  swapWithSimulation!.estimatedGasUsed
+                );
 
               // We will rely on Tenderly gas estimate as source of truth against SOR non-simulated gas estimate accuracy.
               // This is the only reliable and long-term feasible test assertion approach.
@@ -4215,19 +4215,19 @@ describe('quote for other networks', () => {
               const swapWithSimulationOptions: SwapOptions =
                 chain == ChainId.GOERLI
                   ? {
-                      type: SwapType.SWAP_ROUTER_02,
-                      recipient: WHALES(tokenIn),
-                      slippageTolerance: SLIPPAGE,
-                      deadline: parseDeadline(360),
-                      simulate: { fromAddress: WHALES(tokenIn) },
-                    }
+                    type: SwapType.SWAP_ROUTER_02,
+                    recipient: WHALES(tokenIn),
+                    slippageTolerance: SLIPPAGE,
+                    deadline: parseDeadline(360),
+                    simulate: { fromAddress: WHALES(tokenIn) },
+                  }
                   : {
-                      type: SwapType.UNIVERSAL_ROUTER,
-                      recipient: WHALES(tokenIn),
-                      slippageTolerance: SLIPPAGE,
-                      deadlineOrPreviousBlockhash: parseDeadline(360),
-                      simulate: { fromAddress: WHALES(tokenIn) },
-                    };
+                    type: SwapType.UNIVERSAL_ROUTER,
+                    recipient: WHALES(tokenIn),
+                    slippageTolerance: SLIPPAGE,
+                    deadlineOrPreviousBlockhash: parseDeadline(360),
+                    simulate: { fromAddress: WHALES(tokenIn) },
+                  };
 
               const swapWithSimulation = await alphaRouter.route(
                 amount,
@@ -4272,11 +4272,11 @@ describe('quote for other networks', () => {
                 swap!.estimatedGasUsed
               )
                 ? swapWithSimulation!.estimatedGasUsed.sub(
-                    swap!.estimatedGasUsed
-                  )
+                  swap!.estimatedGasUsed
+                )
                 : swap!.estimatedGasUsed.sub(
-                    swapWithSimulation!.estimatedGasUsed
-                  );
+                  swapWithSimulation!.estimatedGasUsed
+                );
 
               // We will rely on Tenderly gas estimate as source of truth against SOR non-simulated gas estimate accuracy.
               // This is the only reliable and long-term feasible test assertion approach.

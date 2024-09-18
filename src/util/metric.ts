@@ -54,6 +54,7 @@ export class MetricLogger extends IMetric {
   }
 
   public setProperty(key: string, value: unknown): void {
+    // console.log(key, value)
     this.log = this.log.child({ [key]: value });
   }
 
@@ -62,7 +63,7 @@ export class MetricLogger extends IMetric {
   }
 
   public putMetric(key: string, value: number, unit?: MetricLoggerUnit): void {
-    // console.log({ key, value, unit })
+    console.log({ key, value, unit })
     this.log.info(
       { key, value, unit },
       `[Metric]: ${key}: ${value} | ${unit ? unit : ''}`

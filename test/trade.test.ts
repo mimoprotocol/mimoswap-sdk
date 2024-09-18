@@ -19,14 +19,14 @@ describe('MAINNET Trade Test', () => {
   const provider = new JsonRpcProvider(chainProvider, chainId);
 
   it(`trade-test`, async () => {
-    const wbtc = new Token(
+    const fet = new Token(
       chainId,
-      '0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599',
-      8
+      '0xaea46A60368A7bD060eec7DF8CBa43b7EF41Ad85',
+      18
     );
-    const weth = new Token(
+    const ciotx = new Token(
       chainId,
-      '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
+      '0x9F90B457Dea25eF802E38D470ddA7343691D8FE1',
       18
     );
     const router = new AlphaRouter({
@@ -34,19 +34,19 @@ describe('MAINNET Trade Test', () => {
       provider,
     });
     const route = await router.route(
-      CurrencyAmount.fromRawAmount(wbtc, parseUnits('1', 8).toString()),
-      weth,
+      CurrencyAmount.fromRawAmount(fet, parseUnits('1', 8).toString()),
+      ciotx,
       TradeType.EXACT_INPUT,
       {
         recipient: '0x0000000000000000000000000000000000000000',
         slippageTolerance: new Percent(50, 10_000),
 
-        deadline: Math.floor(Date.now() / 1000 + 1800),
+        // deadline: Math.floor(Date.now() / 1000 + 1800),
 
-        type: SwapType.SWAP_ROUTER_02,
+        type: SwapType.UNIVERSAL_ROUTER,
       },
       {
-        protocols: [Protocol.V2, Protocol.V3],
+        protocols: [Protocol.MIXED],
       }
     );
     console.log('route=>', route);
