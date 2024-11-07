@@ -13,7 +13,7 @@ import {
   Pool,
   Position,
   Route as V3RouteRaw,
-} from '@uniswap/v3-sdk';
+} from '../v3-sdk';
 
 import { SimulationStatus } from '../providers';
 import { CurrencyAmount } from '../util/amounts';
@@ -163,13 +163,13 @@ export type SwapOptionsSwapRouter02 = {
     s: string;
   } & (
     | {
-      amount: string;
-      deadline: string;
-    }
+        amount: string;
+        deadline: string;
+      }
     | {
-      nonce: string;
-      expiry: string;
-    }
+        nonce: string;
+        expiry: string;
+      }
   );
 };
 

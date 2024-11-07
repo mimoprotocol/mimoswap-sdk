@@ -21,12 +21,12 @@ describe('MAINNET Trade Test', () => {
   it(`trade-test`, async () => {
     const fet = new Token(
       chainId,
-      '0xaea46A60368A7bD060eec7DF8CBa43b7EF41Ad85',
+      '0x6fbcdc1169b5130c59e72e51ed68a84841c98cd1',
       18
     );
     const ciotx = new Token(
       chainId,
-      '0x9F90B457Dea25eF802E38D470ddA7343691D8FE1',
+      '0x6c0bf4b53696b5434a0d21c7d13aa3cbf754913e',
       18
     );
     const router = new AlphaRouter({

@@ -11,7 +11,7 @@ import {
   FeeAmount,
   TickMath,
   encodeSqrtRatioX96,
-} from '@uniswap/v3-sdk';
+} from '../../../v3-sdk';
 import { MixedRoute, RouteV3 } from '../route';
 import { Protocol } from '../protocol';
 import { Route as V2RouteSDK, Pair } from '../../../v2-sdk';

@@ -20,7 +20,7 @@ import {
   TickMath,
   nearestUsableTick,
   encodeSqrtRatioX96,
-} from '@uniswap/v3-sdk';
+} from '../../v3-sdk';
 import { Pair, Route as V2RouteSDK } from '../../v2-sdk';
 import { MixedRouteSDK } from './mixedRoute/route';
 

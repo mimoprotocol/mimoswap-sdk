@@ -18,23 +18,15 @@ describe('IOTEX Trade Test', () => {
   const chainProvider = ID_TO_PROVIDER(chainId);
   const provider = new JsonRpcProvider(chainProvider, chainId);
 
-  // const usdt = "0x6fbcdc1169b5130c59e72e51ed68a84841c98cd1"
-  // const wen = "0x6c0bf4b53696b5434a0d21c7d13aa3cbf754913e"
+  const usdt = '0x6fbcdc1169b5130c59e72e51ed68a84841c98cd1';
+  const wen = '0x6c0bf4b53696b5434a0d21c7d13aa3cbf754913e';
 
-  const usdt = "0x6fbcdc1169b5130c59e72e51ed68a84841c98cd1"
-  const usdc = "0xcdf79194c6c285077a58da47641d4dbe51f63542"
+  // const usdt = '0x6fbcdc1169b5130c59e72e51ed68a84841c98cd1';
+  // const usdc = '0xcdf79194c6c285077a58da47641d4dbe51f63542';
 
   it(`trade-iotex-test`, async () => {
-    const t1 = new Token(
-      chainId,
-      usdt,
-      6
-    );
-    const t2 = new Token(
-      chainId,
-      usdc,
-      6
-    );
+    const t1 = new Token(chainId, usdt, 6);
+    const t2 = new Token(chainId, wen, 6);
     const router = new AlphaRouter({
       chainId,
       provider,
@@ -50,7 +42,7 @@ describe('IOTEX Trade Test', () => {
         type: SwapType.UNIVERSAL_ROUTER,
       },
       {
-        protocols: [Protocol.MIXED]
+        protocols: [Protocol.MIXED],
       }
     );
     console.log('route=>', route);

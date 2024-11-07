@@ -59,7 +59,12 @@ const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
     USDT_MAINNET,
     WBTC_MAINNET,
   ],
-  [ChainId.IOTEX]: [WRAPPED_NATIVE_CURRENCY[ChainId.IOTEX]!, USDT_IOTEX, USDC_IOTEX, WEN_IOTEX],
+  [ChainId.IOTEX]: [
+    WRAPPED_NATIVE_CURRENCY[ChainId.IOTEX]!,
+    USDT_IOTEX,
+    USDC_IOTEX,
+    WEN_IOTEX,
+  ],
   [ChainId.GOERLI]: [WRAPPED_NATIVE_CURRENCY[ChainId.GOERLI]!],
   [ChainId.SEPOLIA]: [WRAPPED_NATIVE_CURRENCY[ChainId.SEPOLIA]!],
   //v2 not deployed on [arbitrum, polygon, celo, gnosis, moonbeam, bnb, avalanche] and their testnets
@@ -130,7 +135,7 @@ const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
  * @class StaticV2SubgraphProvider
  */
 export class StaticV2SubgraphProvider implements IV2SubgraphProvider {
-  constructor(private chainId: ChainId) { }
+  constructor(private chainId: ChainId) {}
 
   public async getPools(
     tokenIn?: Token,

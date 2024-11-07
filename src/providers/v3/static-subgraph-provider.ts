@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { ChainId, Token } from '../../sdk-core';
-import { FeeAmount, Pool } from '@uniswap/v3-sdk';
+import { FeeAmount, Pool } from '../../v3-sdk';
 import JSBI from 'jsbi';
 import _ from 'lodash';
 
@@ -82,7 +82,12 @@ const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
     USDT_MAINNET,
     WBTC_MAINNET,
   ],
-  [ChainId.IOTEX]: [WRAPPED_NATIVE_CURRENCY[ChainId.IOTEX]!, USDT_IOTEX, USDC_IOTEX, WEN_IOTEX],
+  [ChainId.IOTEX]: [
+    WRAPPED_NATIVE_CURRENCY[ChainId.IOTEX]!,
+    USDT_IOTEX,
+    USDC_IOTEX,
+    WEN_IOTEX,
+  ],
   [ChainId.GOERLI]: [
     WRAPPED_NATIVE_CURRENCY[ChainId.GOERLI]!,
     USDT_GOERLI,
@@ -187,7 +192,7 @@ export class StaticV3SubgraphProvider implements IV3SubgraphProvider {
   constructor(
     private chainId: ChainId,
     private poolProvider: IV3PoolProvider
-  ) { }
+  ) {}
 
   public async getPools(
     tokenIn?: Token,

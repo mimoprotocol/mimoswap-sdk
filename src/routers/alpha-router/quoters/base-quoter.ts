@@ -2,7 +2,7 @@ import { BigNumber } from '@ethersproject/bignumber';
 import { Protocol } from '../../../router-sdk';
 import { ChainId, Currency, Token, TradeType } from '../../../sdk-core';
 import { Pair } from '../../../v2-sdk';
-import { Pool } from '@uniswap/v3-sdk';
+import { Pool } from '../../../v3-sdk';
 import _ from 'lodash';
 
 import {
@@ -168,7 +168,6 @@ export abstract class BaseQuoter<
           MetricLoggerUnit.Count
         );
       }
-
       return this.getQuotes(
         routesResult.routes,
         amounts,
