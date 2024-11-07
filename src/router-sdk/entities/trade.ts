@@ -8,11 +8,7 @@ import {
   TradeType,
 } from '../../sdk-core';
 import { Pair, Route as V2RouteSDK, Trade as V2TradeSDK } from '../../v2-sdk';
-import {
-  Pool,
-  Route as V3RouteSDK,
-  Trade as V3TradeSDK,
-} from '@uniswap/v3-sdk';
+import { Pool, Route as V3RouteSDK, Trade as V3TradeSDK } from '../../v3-sdk';
 import invariant from 'tiny-invariant';
 import { ONE, ONE_HUNDRED_PERCENT, ZERO, ZERO_PERCENT } from '../constants';
 import { MixedRouteSDK } from './mixedRoute/route';

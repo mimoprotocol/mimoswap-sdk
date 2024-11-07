@@ -1,7 +1,8 @@
+// @ts-nocheck
 import { BigNumber } from '@ethersproject/bignumber';
 import { ChainId, Fraction, TradeType } from '../../../../../src/sdk-core';
 import { Pair } from '../../../../../src/v2-sdk';
-import { Pool } from '@uniswap/v3-sdk';
+import { Pool } from '../../../../../src/v3-sdk';
 import JSBI from 'jsbi';
 import _ from 'lodash';
 import sinon from 'sinon';

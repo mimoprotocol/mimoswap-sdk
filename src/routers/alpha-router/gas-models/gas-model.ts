@@ -5,7 +5,7 @@ import {
   Token,
 } from '../../../sdk-core';
 import { Pair } from '../../../v2-sdk';
-import { Pool } from '@uniswap/v3-sdk';
+import { Pool } from '../../../v3-sdk';
 
 import { ProviderConfig } from '../../../providers/provider';
 import {

@@ -12,7 +12,7 @@ import {
   UniversalRouterVersion,
 } from '@mimoprotocol/universal-router-sdk';
 import { Route as V2RouteRaw } from '../v2-sdk';
-import { Route as V3RouteRaw } from '@uniswap/v3-sdk';
+import { Route as V3RouteRaw } from '../v3-sdk';
 import _ from 'lodash';
 
 import {
