@@ -689,7 +689,7 @@ export class TokenProvider implements ITokenProvider {
   constructor(
     private chainId: ChainId,
     protected multicall2Provider: IMulticallProvider
-  ) { }
+  ) {}
 
   private async getTokenSymbol(
     addresses: string[],
@@ -834,8 +834,10 @@ export class TokenProvider implements ITokenProvider {
       }
 
       log.info(
-        `Got token symbol and decimals for ${Object.values(addressToToken).length
-        } out of ${addresses.length} tokens on-chain ${providerConfig ? `as of: ${providerConfig?.blockNumber}` : ''
+        `Got token symbol and decimals for ${
+          Object.values(addressToToken).length
+        } out of ${addresses.length} tokens on-chain ${
+          providerConfig ? `as of: ${providerConfig?.blockNumber}` : ''
         }`
       );
     }
@@ -910,7 +912,7 @@ export const USDT_ON = (chainId: ChainId): Token => {
     case ChainId.BNB:
       return USDT_BNB;
     case ChainId.IOTEX:
-      return USDC_IOTEX
+      return USDC_IOTEX;
     default:
       throw new Error(`Chain id: ${chainId} not supported`);
   }
@@ -953,7 +955,7 @@ export const USDC_ON = (chainId: ChainId): Token => {
     case ChainId.BASE_GOERLI:
       return USDC_BASE_GOERLI;
     case ChainId.IOTEX:
-      return USDC_IOTEX
+      return USDC_IOTEX;
     default:
       throw new Error(`Chain id: ${chainId} not supported`);
   }

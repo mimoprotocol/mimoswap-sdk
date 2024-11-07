@@ -2,7 +2,7 @@ import { BigNumber } from '@ethersproject/bignumber';
 import { BaseProvider } from '@ethersproject/providers';
 import { encodeMixedRouteToPath, MixedRouteSDK, Protocol } from '../router-sdk';
 import { ChainId } from '../sdk-core';
-import { encodeRouteToPath } from '@uniswap/v3-sdk';
+import { encodeRouteToPath } from '../v3-sdk';
 import retry, { Options as RetryOptions } from 'async-retry';
 import _ from 'lodash';
 import stats from 'stats-lite';
@@ -403,7 +403,7 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
       };
     });
 
-    log.info(
+    console.log(
       `About to get ${
         inputs.length
       } quotes in chunks of ${normalizedChunk} [${_.map(
@@ -447,7 +447,7 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
 
         const [success, failed, pending] = this.partitionQuotes(quoteStates);
 
-        log.info(
+        console.log(
           `Starting attempt: ${attemptNumber}.
           Currently ${success.length} success, ${failed.length} failed, ${pending.length} pending.
           Gas limit override: ${gasLimitOverride} Block number override: ${providerConfig.blockNumber}.`
@@ -547,7 +547,10 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
             }
           )
         );
-
+        console.log(
+          'quoteStates=================>',
+          JSON.stringify(quoteStates)
+        );
         const [successfulQuoteStates, failedQuoteStates, pendingQuoteStates] =
           this.partitionQuotes(quoteStates);
 
@@ -688,7 +691,7 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
         }
 
         if (retryAll) {
-          log.info(
+          console.log(
             `Attempt ${attemptNumber}. Resetting all requests to pending for next attempt.`
           );
 
@@ -725,7 +728,7 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
             ) &&
             attemptNumber == this.retryOptions.retries
           ) {
-            log.error(
+            console.log(
               `Failed to get quotes on Arbitrum due to provider gas error issue. Overriding error to return 0 quotes.`
             );
             return {

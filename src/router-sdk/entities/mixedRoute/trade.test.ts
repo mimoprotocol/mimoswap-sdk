@@ -17,7 +17,7 @@ import {
   Pool,
   TickMath,
   TICK_SPACINGS,
-} from '@uniswap/v3-sdk';
+} from '../../../v3-sdk';
 import JSBI from 'jsbi';
 import { MixedRouteSDK } from './route';
 import { MixedRouteTrade } from './trade';

@@ -33,7 +33,7 @@ import {
 } from '../gas-models/test-util/mocked-dependencies';
 import { ChainId, TradeType } from '../../../../../src/sdk-core';
 import { Trade } from '../../../../../src/router-sdk';
-import { Route } from '@uniswap/v3-sdk';
+import { Route } from '../../../../../src/v3-sdk';
 import { getPools } from '../gas-models/test-util/helpers';
 import { BaseProvider } from '@ethersproject/providers';
 

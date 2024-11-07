@@ -2,7 +2,7 @@
 import { partitionMixedRouteByProtocol } from '../../../../../src/router-sdk';
 import { Currency, CurrencyAmount, Ether } from '../../../../../src/sdk-core';
 import { Pair } from '../../../../../src/v2-sdk';
-import { Pool } from '@uniswap/v3-sdk';
+import { Pool } from '../../../../../src/v3-sdk';
 import { BigNumber } from 'ethers';
 import _ from 'lodash';
 import {
