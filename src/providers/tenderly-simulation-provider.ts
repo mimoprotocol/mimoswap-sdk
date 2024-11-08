@@ -8,7 +8,7 @@ import {
   PERMIT2_ADDRESS,
   UNIVERSAL_ROUTER_ADDRESS,
   UniversalRouterVersion,
-} from '@mimoprotocol/universal-router-sdk';
+} from '../universal-router-sdk';
 import axios, { AxiosRequestConfig } from 'axios';
 import { BigNumber } from 'ethers/lib/ethers';
 

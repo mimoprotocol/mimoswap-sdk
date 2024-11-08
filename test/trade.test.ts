@@ -46,7 +46,7 @@ describe('MAINNET Trade Test', () => {
         type: SwapType.UNIVERSAL_ROUTER,
       },
       {
-        protocols: [Protocol.MIXED],
+        protocols: [Protocol.V2],
       }
     );
     console.log('route=>', route);

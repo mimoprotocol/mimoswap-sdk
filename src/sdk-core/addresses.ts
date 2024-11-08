@@ -140,6 +140,7 @@ const IOTEX_ADDRESSES: ChainAddresses = {
     '0x6aFD2d627cb163d1916d8Ca84BF9796294044ADf',
   tickLensAddress: '0xF9126f009415859fbd575D83aFA1A50dFb417c8A',
   swapRouter02Address: '0xA6EB3902ca74265B7E5a1F66D39Fa0ceC0cA38Ff',
+  v1MixedRouteQuoterAddress: '0x1a9a28afFEe2CD7Cc86854535ddf839C18F3c495',
 };
 
 // celo v3 addresses
