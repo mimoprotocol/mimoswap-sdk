@@ -18,15 +18,15 @@ describe('IOTEX Trade Test', () => {
   const chainProvider = ID_TO_PROVIDER(chainId);
   const provider = new JsonRpcProvider(chainProvider, chainId);
 
-  const usdt = '0x6fbcdc1169b5130c59e72e51ed68a84841c98cd1';
-  const wen = '0x6c0bf4b53696b5434a0d21c7d13aa3cbf754913e';
+  const a1 = '0x6fbcdc1169b5130c59e72e51ed68a84841c98cd1';
+  const a2 = '0x6c0bf4b53696b5434a0d21c7d13aa3cbf754913e';
 
-  // const usdt = '0x6fbcdc1169b5130c59e72e51ed68a84841c98cd1';
-  // const usdc = '0xcdf79194c6c285077a58da47641d4dbe51f63542';
+  // const a1 = '0xc7b93720f73b037394ce00f954f849ed484a3dea';
+  // const a2 = '0x0258866edaf84d6081df17660357ab20a07d0c80';
 
   it(`trade-iotex-test`, async () => {
-    const t1 = new Token(chainId, usdt, 6);
-    const t2 = new Token(chainId, wen, 6);
+    const t1 = new Token(chainId, a1, 6);
+    const t2 = new Token(chainId, a2, 6);
     const router = new AlphaRouter({
       chainId,
       provider,

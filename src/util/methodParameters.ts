@@ -10,7 +10,7 @@ import {
   SwapRouter as UniversalRouter,
   UNIVERSAL_ROUTER_ADDRESS,
   UniversalRouterVersion,
-} from '@mimoprotocol/universal-router-sdk';
+} from '../universal-router-sdk';
 import { Route as V2RouteRaw } from '../v2-sdk';
 import { Route as V3RouteRaw } from '../v3-sdk';
 import _ from 'lodash';

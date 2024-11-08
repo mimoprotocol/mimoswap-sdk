@@ -192,10 +192,7 @@ export class MixedQuoter extends BaseQuoter<
     const { routesWithQuotes } = await quoteFn<MixedRoute>(amounts, routes, {
       blockNumber: routingConfig.blockNumber,
     });
-    console.log(
-      'getQuotes routesWithQuotes=================>',
-      JSON.stringify(routesWithQuotes)
-    );
+
     metric.putMetric(
       'MixedQuotesLoad',
       Date.now() - beforeQuotes,
@@ -232,10 +229,6 @@ export class MixedQuoter extends BaseQuoter<
           !initializedTicksCrossedList ||
           !gasEstimate
         ) {
-          console.log(
-            'getQuotes debug=================>',
-            'Dropping a null mixed quote for route.'
-          );
           log.debug(
             {
               route: routeToString(route),
