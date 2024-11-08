@@ -19,8 +19,8 @@ import {
 import {
   PERMIT2_ADDRESS,
   UNIVERSAL_ROUTER_ADDRESS as UNIVERSAL_ROUTER_ADDRESS_BY_CHAIN,
-} from '@mimoprotocol/universal-router-sdk';
-import { Permit2Permit } from '@mimoprotocol/universal-router-sdk/dist/utils/inputTokens';
+} from '../../../../src/universal-router-sdk';
+import { Permit2Permit } from '../../../../src/universal-router-sdk/dist/utils/inputTokens';
 import { Pair } from '../../../../src/v2-sdk';
 import { encodeSqrtRatioX96, FeeAmount, Pool } from '../../../../src/v3-sdk';
 import bunyan from 'bunyan';

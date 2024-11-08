@@ -6,7 +6,7 @@ import {
   Trade,
 } from '../router-sdk';
 import { Currency, Fraction, Percent, Token, TradeType } from '../sdk-core';
-import { SwapOptions as UniversalRouterSwapOptions } from '@mimoprotocol/universal-router-sdk';
+import { SwapOptions as UniversalRouterSwapOptions } from '../universal-router-sdk';
 import { Route as V2RouteRaw } from '../v2-sdk';
 import {
   MethodParameters as SDKMethodParameters,

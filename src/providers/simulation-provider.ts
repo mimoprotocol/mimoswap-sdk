@@ -1,6 +1,6 @@
 import { JsonRpcProvider } from '@ethersproject/providers';
 import { ChainId, TradeType } from '../sdk-core';
-import { PERMIT2_ADDRESS } from '@mimoprotocol/universal-router-sdk';
+import { PERMIT2_ADDRESS } from '../universal-router-sdk';
 import { BigNumber } from 'ethers/lib/ethers';
 
 import {
