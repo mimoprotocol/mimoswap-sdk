@@ -1,6 +1,6 @@
 {
   "name": "@dappworks/mimoswap-sdk",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "description": "Uniswap Smart Order Router",
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",
