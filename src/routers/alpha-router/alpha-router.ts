@@ -1785,7 +1785,6 @@ export class AlphaRouter
           Date.now() - beforeGetCandidates,
           MetricLoggerUnit.Milliseconds
         );
-        console.log({ candidatePools });
         return candidatePools;
       });
     }
@@ -1904,7 +1903,7 @@ export class AlphaRouter
     // if MixedProtocol is specified or no protocol is specified and v2 is supported AND tradeType is ExactIn
     // AND is Mainnet or Gorli
     if (shouldQueryMixedProtocol && mixedProtocolAllowed) {
-      console.log({ protocols, tradeType }, 'Routing across MixedRoutes');
+      // console.log({ protocols, tradeType }, 'Routing across MixedRoutes');
 
       metric.putMetric(
         'SwapRouteFromChain_Mixed_GetRoutesThenQuotes_Request',

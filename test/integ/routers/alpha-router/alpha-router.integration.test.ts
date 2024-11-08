@@ -206,9 +206,9 @@ const isTenderlyEnvironmentSet = (): boolean => {
     !!process.env.TENDERLY_PROJECT &&
     !!process.env.TENDERLY_ACCESS_KEY;
   if (!isSet && !warnedTenderly) {
-    console.log(
-      'Skipping Tenderly Simulation Tests since env variables for TENDERLY_BASE_URL, TENDERLY_USER, TENDERLY_PROJECT and TENDERLY_ACCESS_KEY are not set.'
-    );
+    // console.log(
+    //   'Skipping Tenderly Simulation Tests since env variables for TENDERLY_BASE_URL, TENDERLY_USER, TENDERLY_PROJECT and TENDERLY_ACCESS_KEY are not set.'
+    // );
     warnedTenderly = true;
   }
   return isSet;
@@ -218,9 +218,9 @@ let warnedTesterPK = false;
 const isTesterPKEnvironmentSet = (): boolean => {
   const isSet = !!process.env.TESTER_PK;
   if (!isSet && !warnedTesterPK) {
-    console.log(
-      'Skipping Permit Tenderly Simulation Test since env variables for TESTER_PK is not set.'
-    );
+    // console.log(
+    //   'Skipping Permit Tenderly Simulation Test since env variables for TESTER_PK is not set.'
+    // );
     warnedTesterPK = true;
   }
   return isSet;
@@ -3939,9 +3939,9 @@ describe('quote for other networks', () => {
               const percentDiff = gasEstimateDiff
                 .mul(BigNumber.from(100))
                 .div(swapWithSimulation!.estimatedGasUsed);
-              console.log(
-                `chain ${chain} GAS_ESTIMATE_DEVIATION_PERCENT ${percentDiff.toNumber()}`
-              );
+              // console.log(
+              //   `chain ${chain} GAS_ESTIMATE_DEVIATION_PERCENT ${percentDiff.toNumber()}`
+              // );
               expect(
                 percentDiff.lte(
                   BigNumber.from(GAS_ESTIMATE_DEVIATION_PERCENT[chain])
@@ -4056,9 +4056,9 @@ describe('quote for other networks', () => {
               const percentDiff = gasEstimateDiff
                 .mul(BigNumber.from(100))
                 .div(swapWithSimulation!.estimatedGasUsed);
-              console.log(
-                `chain ${chain} GAS_ESTIMATE_DEVIATION_PERCENT ${percentDiff.toNumber()}`
-              );
+              // console.log(
+              //   `chain ${chain} GAS_ESTIMATE_DEVIATION_PERCENT ${percentDiff.toNumber()}`
+              // );
               expect(
                 percentDiff.lte(
                   BigNumber.from(GAS_ESTIMATE_DEVIATION_PERCENT[chain])
@@ -4169,9 +4169,9 @@ describe('quote for other networks', () => {
               const percentDiff = gasEstimateDiff
                 .mul(BigNumber.from(100))
                 .div(swapWithSimulation!.estimatedGasUsed);
-              console.log(
-                `chain ${chain} GAS_ESTIMATE_DEVIATION_PERCENT ${percentDiff.toNumber()}`
-              );
+              // console.log(
+              //   `chain ${chain} GAS_ESTIMATE_DEVIATION_PERCENT ${percentDiff.toNumber()}`
+              // );
 
               expect(
                 percentDiff.lte(
@@ -4286,9 +4286,9 @@ describe('quote for other networks', () => {
               const percentDiff = gasEstimateDiff
                 .mul(BigNumber.from(100))
                 .div(swapWithSimulation!.estimatedGasUsed);
-              console.log(
-                `chain ${chain} GAS_ESTIMATE_DEVIATION_PERCENT ${percentDiff.toNumber()}`
-              );
+              // console.log(
+              //   `chain ${chain} GAS_ESTIMATE_DEVIATION_PERCENT ${percentDiff.toNumber()}`
+              // );
 
               expect(
                 percentDiff.lte(

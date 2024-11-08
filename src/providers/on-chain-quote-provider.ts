@@ -403,18 +403,18 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
       };
     });
 
-    console.log(
-      `About to get ${
-        inputs.length
-      } quotes in chunks of ${normalizedChunk} [${_.map(
-        inputsChunked,
-        (i) => i.length
-      ).join(',')}] ${
-        gasLimitOverride
-          ? `with a gas limit override of ${gasLimitOverride}`
-          : ''
-      } and block number: ${await providerConfig.blockNumber} [Original before offset: ${originalBlockNumber}].`
-    );
+    // console.log(
+    //   `About to get ${
+    //     inputs.length
+    //   } quotes in chunks of ${normalizedChunk} [${_.map(
+    //     inputsChunked,
+    //     (i) => i.length
+    //   ).join(',')}] ${
+    //     gasLimitOverride
+    //       ? `with a gas limit override of ${gasLimitOverride}`
+    //       : ''
+    //   } and block number: ${await providerConfig.blockNumber} [Original before offset: ${originalBlockNumber}].`
+    // );
 
     metric.putMetric('QuoteBatchSize', inputs.length, MetricLoggerUnit.Count);
     metric.putMetric(
@@ -546,10 +546,6 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
               }
             }
           )
-        );
-        console.log(
-          'quoteStates=================>',
-          JSON.stringify(quoteStates)
         );
         const [successfulQuoteStates, failedQuoteStates, pendingQuoteStates] =
           this.partitionQuotes(quoteStates);
@@ -691,9 +687,9 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
         }
 
         if (retryAll) {
-          console.log(
-            `Attempt ${attemptNumber}. Resetting all requests to pending for next attempt.`
-          );
+          // console.log(
+          //   `Attempt ${attemptNumber}. Resetting all requests to pending for next attempt.`
+          // );
 
           const normalizedChunk = Math.ceil(
             inputs.length / Math.ceil(inputs.length / multicallChunk)
@@ -728,9 +724,9 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
             ) &&
             attemptNumber == this.retryOptions.retries
           ) {
-            console.log(
-              `Failed to get quotes on Arbitrum due to provider gas error issue. Overriding error to return 0 quotes.`
-            );
+            // console.log(
+            //   `Failed to get quotes on Arbitrum due to provider gas error issue. Overriding error to return 0 quotes.`
+            // );
             return {
               results: [],
               blockNumber: BigNumber.from(0),
