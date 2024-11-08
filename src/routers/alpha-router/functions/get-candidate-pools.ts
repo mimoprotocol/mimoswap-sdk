@@ -1460,7 +1460,6 @@ export async function getMixedRouteCandidatePools({
       ),
     },
   };
-  console.log(poolsBySelection);
   return {
     V2poolAccessor,
     V3poolAccessor,
