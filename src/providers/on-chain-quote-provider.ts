@@ -290,7 +290,7 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
       rollback: { enabled: false },
     },
     protected quoterAddressOverride?: string
-  ) { }
+  ) {}
 
   private getQuoterAddress(useMixedRouteQuoter: boolean): string {
     if (this.quoterAddressOverride) {
@@ -353,10 +353,14 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
     routesWithQuotes: RouteWithQuotes<TRoute>[];
     blockNumber: BigNumber;
   }> {
-    //@ts-ignore
-    // console.log(routes.map((i: V3Route) => JSBI.toNumber(i.pools[0]?.liquidity)))
-    //@ts-ignore
-    routes = routes.filter((i: V3Route) => JSBI.toNumber(i.pools[0]?.liquidity) > 1e18)
+    routes = routes.filter((i) => {
+      if (i.protocol === Protocol.V3) {
+        const liquidity = i.pools[0]?.liquidity;
+        return liquidity && JSBI.toNumber(liquidity) > 1e18;
+      }
+      return true;
+    });
+
     const useMixedRouteQuoter =
       routes.some((route) => route.protocol === Protocol.V2) ||
       routes.some((route) => route.protocol === Protocol.MIXED);
@@ -375,20 +379,19 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
       blockNumber:
         _providerConfig?.blockNumber ?? originalBlockNumber + baseBlockOffset,
     };
-    console.log("routes", routes)
     const inputs: [string, string][] = _(routes)
       .flatMap((route) => {
         const encodedRoute =
           route.protocol === Protocol.V3
             ? encodeRouteToPath(
-              route,
-              functionName == 'quoteExactOutput' // For exactOut must be true to ensure the routes are reversed.
-            )
+                route,
+                functionName == 'quoteExactOutput' // For exactOut must be true to ensure the routes are reversed.
+              )
             : encodeMixedRouteToPath(
-              route instanceof V2Route
-                ? new MixedRouteSDK(route.pairs, route.input, route.output)
-                : route
-            );
+                route instanceof V2Route
+                  ? new MixedRouteSDK(route.pairs, route.input, route.output)
+                  : route
+              );
         const routeInputs: [string, string][] = amounts.map((amount) => [
           encodedRoute,
           `0x${amount.quotient.toString(16)}`,
@@ -454,7 +457,9 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
 
         log.info(
           `Starting attempt: ${attemptNumber}.
-          Currently ${success.length} success, ${failed.length} failed, ${pending.length} pending.
+          Currently ${success.length} success, ${failed.length} failed, ${
+            pending.length
+          } pending.
           Gas limit override: ${gasLimitOverride} Block number override: ${await providerConfig.blockNumber}.`
         );
 
@@ -471,19 +476,6 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
 
               try {
                 totalCallsMade = totalCallsMade + 1;
-
-                console.log("debug-quote", {
-                  address: this.getQuoterAddress(useMixedRouteQuoter),
-                  contractInterface: useMixedRouteQuoter
-                    ? IMixedRouteQuoterV1__factory.createInterface()
-                    : IQuoterV2__factory.createInterface(),
-                  functionName,
-                  functionParams: inputs,
-                  providerConfig,
-                  additionalConfig: {
-                    gasLimitPerCallOverride: gasLimitOverride,
-                  },
-                })
                 const results =
                   await this.multicall2Provider.callSameFunctionOnContractWithMultipleParams<
                     [string, string],
@@ -538,7 +530,8 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
                     status: 'failed',
                     inputs,
                     reason: new ProviderTimeoutError(
-                      `Req ${idx}/${quoteStates.length}. Request had ${inputs.length
+                      `Req ${idx}/${quoteStates.length}. Request had ${
+                        inputs.length
                       } inputs. ${err.message.slice(0, 500)}`
                     ),
                   } as QuoteBatchFailed;
@@ -639,13 +632,14 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
                   !blockHeaderRolledBack
                 ) {
                   log.info(
-                    `Attempt ${attemptNumber}. Have failed due to block header ${blockHeaderRetryAttemptNumber - 1
+                    `Attempt ${attemptNumber}. Have failed due to block header ${
+                      blockHeaderRetryAttemptNumber - 1
                     } times. Rolling back block number by ${rollbackBlockOffset} for next retry`
                   );
                   providerConfig.blockNumber = providerConfig.blockNumber
                     ? (await providerConfig.blockNumber) + rollbackBlockOffset
                     : (await this.provider.getBlockNumber()) +
-                    rollbackBlockOffset;
+                      rollbackBlockOffset;
 
                   retryAll = true;
                   blockHeaderRolledBack = true;
@@ -820,8 +814,10 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
       .value();
 
     log.info(
-      `Got ${successfulQuotes.length} successful quotes, ${failedQuotes.length
-      } failed quotes. Took ${finalAttemptNumber - 1
+      `Got ${successfulQuotes.length} successful quotes, ${
+        failedQuotes.length
+      } failed quotes. Took ${
+        finalAttemptNumber - 1
       } attempt loops. Total calls made to provider: ${totalCallsMade}. Have retried for timeout: ${haveRetriedForTimeout}`
     );
 
