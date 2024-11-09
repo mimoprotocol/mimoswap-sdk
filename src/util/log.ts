@@ -49,6 +49,7 @@ class NullLogger implements Logger {
   info(obj: Object, ...params: any[]): void;
   info(format: any, ...params: any[]): void;
   info(..._rest: any): boolean | void {
+    console.log(..._rest)
     return true;
   }
   warn(): boolean;

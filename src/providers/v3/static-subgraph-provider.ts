@@ -192,7 +192,7 @@ export class StaticV3SubgraphProvider implements IV3SubgraphProvider {
   constructor(
     private chainId: ChainId,
     private poolProvider: IV3PoolProvider
-  ) {}
+  ) { }
 
   public async getPools(
     tokenIn?: Token,
@@ -256,6 +256,7 @@ export class StaticV3SubgraphProvider implements IV3SubgraphProvider {
 
         const liquidityNumber = JSBI.toNumber(liquidity);
 
+
         return {
           id: poolAddress,
           feeTier: unparseFeeAmount(fee),
@@ -273,7 +274,6 @@ export class StaticV3SubgraphProvider implements IV3SubgraphProvider {
       })
       .compact()
       .value();
-
     return subgraphPools;
   }
 }
