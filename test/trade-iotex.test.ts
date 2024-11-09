@@ -18,31 +18,31 @@ describe('IOTEX Trade Test', () => {
   const chainProvider = ID_TO_PROVIDER(chainId);
   const provider = new JsonRpcProvider(chainProvider, chainId);
 
-  const a1 = '0x6fbcdc1169b5130c59e72e51ed68a84841c98cd1';
-  const a2 = '0x6c0bf4b53696b5434a0d21c7d13aa3cbf754913e';
+  const a1 = '0xa00744882684c3e4747faefd68d283ea44099d03';
+  const a2 = '0xb8744ae4032be5e5ef9fab94ee9c3bf38d5d2ae0';
 
   // const a1 = '0xc7b93720f73b037394ce00f954f849ed484a3dea';
   // const a2 = '0x0258866edaf84d6081df17660357ab20a07d0c80';
 
   it(`trade-iotex-test`, async () => {
-    const t1 = new Token(chainId, a1, 6);
-    const t2 = new Token(chainId, a2, 6);
+    const t1 = new Token(chainId, a1, 18);
+    const t2 = new Token(chainId, a2, 18);
     const router = new AlphaRouter({
       chainId,
       provider,
     });
     const route = await router.route(
-      CurrencyAmount.fromRawAmount(t1, parseUnits('1', 6).toString()),
+      CurrencyAmount.fromRawAmount(t1, parseUnits('1', 18).toString()),
       t2,
-      TradeType.EXACT_INPUT,
+      TradeType.EXACT_OUTPUT,
       {
         recipient: '0x0000000000000000000000000000000000000000',
         slippageTolerance: new Percent(1000, 10_000),
-        // deadline: Math.floor(Date.now() / 1000 + 1800),
-        type: SwapType.UNIVERSAL_ROUTER,
+        deadline: Math.floor(Date.now() / 1000 + 1800),
+        type: SwapType.SWAP_ROUTER_02,
       },
       {
-        protocols: [Protocol.MIXED],
+        protocols: [Protocol.V3],
       }
     );
     console.log('route=>', route);
