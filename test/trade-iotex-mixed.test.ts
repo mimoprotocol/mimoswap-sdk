@@ -18,8 +18,8 @@ describe('IOTEX Trade Test', () => {
   const chainProvider = ID_TO_PROVIDER(chainId);
   const provider = new JsonRpcProvider(chainProvider, chainId);
 
-  const a1 = '0xa00744882684c3e4747faefd68d283ea44099d03';
-  const a2 = '0xb8744ae4032be5e5ef9fab94ee9c3bf38d5d2ae0';
+  const a1 = '0x6fbcdc1169b5130c59e72e51ed68a84841c98cd1';
+  const a2 = '0x6c0bf4b53696b5434a0d21c7d13aa3cbf754913e';
 
   it(`trade-iotex-test`, async () => {
     const t1 = new Token(chainId, a1, 18);
@@ -29,17 +29,16 @@ describe('IOTEX Trade Test', () => {
       provider,
     });
     const route = await router.route(
-      CurrencyAmount.fromRawAmount(t1, parseUnits('1', 18).toString()),
+      CurrencyAmount.fromRawAmount(t1, parseUnits('1', 6).toString()),
       t2,
-      TradeType.EXACT_OUTPUT,
+      TradeType.EXACT_INPUT,
       {
         recipient: '0x0000000000000000000000000000000000000000',
         slippageTolerance: new Percent(1000, 10_000),
-        deadline: Math.floor(Date.now() / 1000 + 1800),
-        type: SwapType.SWAP_ROUTER_02,
+        type: SwapType.UNIVERSAL_ROUTER,
       },
       {
-        protocols: [Protocol.V2],
+        protocols: [Protocol.MIXED],
       }
     );
     console.log('route=>', route);
