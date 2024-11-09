@@ -1,4 +1,3 @@
-import JSBI from 'jsbi';
 import { ChainId } from '../../sdk-core';
 
 import { ICache } from './../cache';
@@ -23,7 +22,7 @@ export class CachingV3SubgraphProvider implements IV3SubgraphProvider {
     private chainId: ChainId,
     protected subgraphProvider: IV3SubgraphProvider,
     private cache: ICache<V3SubgraphPool[]>
-  ) {}
+  ) { }
 
   public async getPools(): Promise<V3SubgraphPool[]> {
     const cachedPools = await this.cache.get(this.SUBGRAPH_KEY(this.chainId));
@@ -33,17 +32,21 @@ export class CachingV3SubgraphProvider implements IV3SubgraphProvider {
     }
 
     let pools = await this.subgraphProvider.getPools();
+
+
+    // @ts-ignore
     // @ts-ignore
     pools = pools.map((i) => {
       // @ts-ignore
-      const liquidity = JSBI.toNumber(i.liquidity);
+      const liquidity = JSBI.BigInt(i.liquidity).toNumber()
       return {
         ...i,
-        liquidity,
+        liquidity: liquidity.toString(),
         tvlETH: liquidity,
         tvlUSD: liquidity,
       };
     });
+
 
     await this.cache.set(this.SUBGRAPH_KEY(this.chainId), pools);
 
