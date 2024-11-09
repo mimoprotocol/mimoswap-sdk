@@ -447,7 +447,7 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
 
         const [success, failed, pending] = this.partitionQuotes(quoteStates);
 
-        console.log(
+        log.info(
           `Starting attempt: ${attemptNumber}.
           Currently ${success.length} success, ${failed.length} failed, ${pending.length} pending.
           Gas limit override: ${gasLimitOverride} Block number override: ${providerConfig.blockNumber}.`
