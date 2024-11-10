@@ -13,6 +13,7 @@ export const DEFAULT_ROUTING_CONFIG_BY_CHAIN = (
     case ChainId.BASE:
     case ChainId.BASE_GOERLI:
     case ChainId.BLAST:
+    case ChainId.IOTEX:
       return {
         v2PoolSelection: {
           topN: 3,
@@ -43,7 +44,6 @@ export const DEFAULT_ROUTING_CONFIG_BY_CHAIN = (
     case ChainId.ARBITRUM_GOERLI:
     case ChainId.ARBITRUM_SEPOLIA:
     case ChainId.CELO:
-    case ChainId.IOTEX:
     case ChainId.CELO_ALFAJORES:
       return {
         v2PoolSelection: {
