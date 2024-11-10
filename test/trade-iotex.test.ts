@@ -27,6 +27,31 @@ describe('IOTEX Trade Test', () => {
       provider,
     });
     const route = await router.route(
+      CurrencyAmount.fromRawAmount(t1, parseUnits('10', 18).toString()),
+      t2,
+      TradeType.EXACT_INPUT,
+      {
+        recipient: '0x0000000000000000000000000000000000000000',
+        slippageTolerance: new Percent(1000, 10_000),
+        deadline: Math.floor(Date.now() / 1000 + 1800),
+        type: SwapType.SWAP_ROUTER_02,
+      },
+      {
+        protocols: [Protocol.V3],
+      }
+    );
+    console.log('route=>', route);
+    expect(route.swapRoute).not.toBeNull();
+  });
+
+  it(`trade-wiotx-usdc.e`, async () => {
+    const t1 = new Token(chainId, "0xa00744882684c3e4747faefd68d283ea44099d03", 18);
+    const t2 = new Token(chainId, "0xcdf79194c6c285077a58da47641d4dbe51f63542", 6);
+    const router = new AlphaRouter({
+      chainId,
+      provider,
+    });
+    const route = await router.route(
       CurrencyAmount.fromRawAmount(t1, parseUnits('1', 18).toString()),
       t2,
       TradeType.EXACT_INPUT,
@@ -44,53 +69,28 @@ describe('IOTEX Trade Test', () => {
     expect(route.swapRoute).not.toBeNull();
   });
 
-  // it(`trade-wiotx-usdc.e`, async () => {
-  //   const t1 = new Token(chainId, "0xa00744882684c3e4747faefd68d283ea44099d03", 18);
-  //   const t2 = new Token(chainId, "0xcdf79194c6c285077a58da47641d4dbe51f63542", 6);
-  //   const router = new AlphaRouter({
-  //     chainId,
-  //     provider,
-  //   });
-  //   const route = await router.route(
-  //     CurrencyAmount.fromRawAmount(t1, parseUnits('1', 18).toString()),
-  //     t2,
-  //     TradeType.EXACT_INPUT,
-  //     {
-  //       recipient: '0x0000000000000000000000000000000000000000',
-  //       slippageTolerance: new Percent(1000, 10_000),
-  //       deadline: Math.floor(Date.now() / 1000 + 1800),
-  //       type: SwapType.SWAP_ROUTER_02,
-  //     },
-  //     {
-  //       protocols: [Protocol.V3],
-  //     }
-  //   );
-  //   console.log('route=>', route);
-  //   expect(route.swapRoute).not.toBeNull();
-  // });
-
-  // it(`trade-vita-usdc.e-mixed`, async () => {
-  //   const t1 = new Token(chainId, "0xb8744ae4032be5e5ef9fab94ee9c3bf38d5d2ae0", 18);
-  //   const t2 = new Token(chainId, "0xcdf79194c6c285077a58da47641d4dbe51f63542", 6);
-  //   const router = new AlphaRouter({
-  //     chainId,
-  //     provider,
-  //   });
-  //   const route = await router.route(
-  //     CurrencyAmount.fromRawAmount(t1, parseUnits('1', 18).toString()),
-  //     t2,
-  //     TradeType.EXACT_INPUT,
-  //     {
-  //       recipient: '0x0000000000000000000000000000000000000000',
-  //       slippageTolerance: new Percent(1000, 10_000),
-  //       // deadline: Math.floor(Date.now() / 1000 + 1800),
-  //       type: SwapType.UNIVERSAL_ROUTER,
-  //     },
-  //     {
-  //       protocols: [Protocol.MIXED],
-  //     }
-  //   );
-  //   console.log('route=>', route);
-  //   expect(route.swapRoute).not.toBeNull();
-  // })
+  it(`trade-usdt-wen-mixed`, async () => {
+    const t1 = new Token(chainId, "0x6fbcdc1169b5130c59e72e51ed68a84841c98cd1", 6);
+    const t2 = new Token(chainId, "0x6c0bf4b53696b5434a0d21c7d13aa3cbf754913e", 6);
+    const router = new AlphaRouter({
+      chainId,
+      provider,
+    });
+    const route = await router.route(
+      CurrencyAmount.fromRawAmount(t1, parseUnits('1', 6).toString()),
+      t2,
+      TradeType.EXACT_INPUT,
+      {
+        recipient: '0x0000000000000000000000000000000000000000',
+        slippageTolerance: new Percent(1000, 10_000),
+        // deadline: Math.floor(Date.now() / 1000 + 1800),
+        type: SwapType.UNIVERSAL_ROUTER,
+      },
+      {
+        protocols: [Protocol.MIXED],
+      }
+    );
+    console.log('route=>', route);
+    expect(route.swapRoute).not.toBeNull();
+  })
 });

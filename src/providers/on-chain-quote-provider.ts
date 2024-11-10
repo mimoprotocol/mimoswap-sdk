@@ -22,7 +22,7 @@ import { routeToString } from '../util/routes';
 import { Result } from './multicall-provider';
 import { UniswapMulticallProvider } from './multicall-uniswap-provider';
 import { ProviderConfig } from './provider';
-import JSBI from 'jsbi';
+// import JSBI from 'jsbi';
 
 /**
  * An on chain quote for a swap.
@@ -290,7 +290,7 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
       rollback: { enabled: false },
     },
     protected quoterAddressOverride?: string
-  ) {}
+  ) { }
 
   private getQuoterAddress(useMixedRouteQuoter: boolean): string {
     if (this.quoterAddressOverride) {
@@ -353,13 +353,13 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
     routesWithQuotes: RouteWithQuotes<TRoute>[];
     blockNumber: BigNumber;
   }> {
-    routes = routes.filter((i) => {
-      if (i.protocol === Protocol.V3) {
-        const liquidity = i.pools[0]?.liquidity;
-        return liquidity && JSBI.toNumber(liquidity) > 1e18;
-      }
-      return true;
-    });
+    // routes = routes.filter((i) => {
+    //   if (i.protocol === Protocol.V3) {
+    //     const liquidity = i.pools[0]?.liquidity;
+    //     return liquidity && JSBI.toNumber(liquidity) > 1e18;
+    //   }
+    //   return true;
+    // });
 
     const useMixedRouteQuoter =
       routes.some((route) => route.protocol === Protocol.V2) ||
@@ -372,26 +372,30 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
     let gasLimitOverride = this.batchParams.gasLimitPerCall;
     const { baseBlockOffset, rollback } = this.blockNumberConfig;
 
+
+
     // Apply the base block offset if provided
     const originalBlockNumber = await this.provider.getBlockNumber();
     const providerConfig: ProviderConfig = {
       ..._providerConfig,
       blockNumber:
-        _providerConfig?.blockNumber ?? originalBlockNumber + baseBlockOffset,
+        await _providerConfig?.blockNumber ?? originalBlockNumber + baseBlockOffset,
     };
+    //@ts-ignore
+    // console.log("routes", { routes, amounts: amounts.map(i => i.numerator.toString()), liquidity: routes.map(i => i.pools[0]?.liquidity.toString()) })
     const inputs: [string, string][] = _(routes)
       .flatMap((route) => {
         const encodedRoute =
           route.protocol === Protocol.V3
             ? encodeRouteToPath(
-                route,
-                functionName == 'quoteExactOutput' // For exactOut must be true to ensure the routes are reversed.
-              )
+              route,
+              functionName == 'quoteExactOutput' // For exactOut must be true to ensure the routes are reversed.
+            )
             : encodeMixedRouteToPath(
-                route instanceof V2Route
-                  ? new MixedRouteSDK(route.pairs, route.input, route.output)
-                  : route
-              );
+              route instanceof V2Route
+                ? new MixedRouteSDK(route.pairs, route.input, route.output)
+                : route
+            );
         const routeInputs: [string, string][] = amounts.map((amount) => [
           encodedRoute,
           `0x${amount.quotient.toString(16)}`,
@@ -457,12 +461,11 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
 
         log.info(
           `Starting attempt: ${attemptNumber}.
-          Currently ${success.length} success, ${failed.length} failed, ${
-            pending.length
+          Currently ${success.length} success, ${failed.length} failed, ${pending.length
           } pending.
           Gas limit override: ${gasLimitOverride} Block number override: ${await providerConfig.blockNumber}.`
         );
-
+        console.log({ quoteStates })
         quoteStates = await Promise.all(
           _.map(
             quoteStates,
@@ -473,7 +476,6 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
 
               // QuoteChunk is pending or failed, so we try again
               const { inputs } = quoteState;
-
               try {
                 totalCallsMade = totalCallsMade + 1;
                 const results =
@@ -493,6 +495,7 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
                     },
                   });
 
+                console.log({ results })
                 const successRateError = this.validateSuccessRate(
                   results.results,
                   haveRetriedForSuccessRate
@@ -530,8 +533,7 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
                     status: 'failed',
                     inputs,
                     reason: new ProviderTimeoutError(
-                      `Req ${idx}/${quoteStates.length}. Request had ${
-                        inputs.length
+                      `Req ${idx}/${quoteStates.length}. Request had ${inputs.length
                       } inputs. ${err.message.slice(0, 500)}`
                     ),
                   } as QuoteBatchFailed;
@@ -632,14 +634,13 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
                   !blockHeaderRolledBack
                 ) {
                   log.info(
-                    `Attempt ${attemptNumber}. Have failed due to block header ${
-                      blockHeaderRetryAttemptNumber - 1
+                    `Attempt ${attemptNumber}. Have failed due to block header ${blockHeaderRetryAttemptNumber - 1
                     } times. Rolling back block number by ${rollbackBlockOffset} for next retry`
                   );
                   providerConfig.blockNumber = providerConfig.blockNumber
                     ? (await providerConfig.blockNumber) + rollbackBlockOffset
                     : (await this.provider.getBlockNumber()) +
-                      rollbackBlockOffset;
+                    rollbackBlockOffset;
 
                   retryAll = true;
                   blockHeaderRolledBack = true;
@@ -696,9 +697,9 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
         }
 
         if (retryAll) {
-          // console.log(
-          //   `Attempt ${attemptNumber}. Resetting all requests to pending for next attempt.`
-          // );
+          console.log(
+            `Attempt ${attemptNumber}. Resetting all requests to pending for next attempt.`
+          );
 
           const normalizedChunk = Math.ceil(
             inputs.length / Math.ceil(inputs.length / multicallChunk)
@@ -713,50 +714,54 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
           });
         }
 
-        if (failedQuoteStates.length > 0) {
-          // TODO: Work with Arbitrum to find a solution for making large multicalls with gas limits that always
-          // successfully.
-          //
-          // On Arbitrum we can not set a gas limit for every call in the multicall and guarantee that
-          // we will not run out of gas on the node. This is because they have a different way of accounting
-          // for gas, that seperates storage and compute gas costs, and we can not cover both in a single limit.
-          //
-          // To work around this and avoid throwing errors when really we just couldn't get a quote, we catch this
-          // case and return 0 quotes found.
-          if (
-            (this.chainId == ChainId.ARBITRUM_ONE ||
-              this.chainId == ChainId.ARBITRUM_GOERLI) &&
-            _.every(
-              failedQuoteStates,
-              (failedQuoteState) =>
-                failedQuoteState.reason instanceof ProviderGasError
-            ) &&
-            attemptNumber == this.retryOptions.retries
-          ) {
-            // console.log(
-            //   `Failed to get quotes on Arbitrum due to provider gas error issue. Overriding error to return 0 quotes.`
-            // );
-            return {
-              results: [],
-              blockNumber: BigNumber.from(0),
-              approxGasUsedPerSuccessCall: 0,
-            };
-          }
-          // throw new Error(
-          //   `Failed to get ${failedQuoteStates.length} quotes. Reasons: ${reasonForFailureStr}`
-          // );
-          return {
-            results: [],
-            blockNumber: BigNumber.from(0),
-            approxGasUsedPerSuccessCall: 0,
-          };
-        }
+        // if (failedQuoteStates.length > 0) {
+        //   // TODO: Work with Arbitrum to find a solution for making large multicalls with gas limits that always
+        //   // successfully.
+        //   //
+        //   // On Arbitrum we can not set a gas limit for every call in the multicall and guarantee that
+        //   // we will not run out of gas on the node. This is because they have a different way of accounting
+        //   // for gas, that seperates storage and compute gas costs, and we can not cover both in a single limit.
+        //   //
+        //   // To work around this and avoid throwing errors when really we just couldn't get a quote, we catch this
+        //   // case and return 0 quotes found.
+        //   if (
+        //     (this.chainId == ChainId.ARBITRUM_ONE ||
+        //       this.chainId == ChainId.ARBITRUM_GOERLI) &&
+        //     _.every(
+        //       failedQuoteStates,
+        //       (failedQuoteState) =>
+        //         failedQuoteState.reason instanceof ProviderGasError
+        //     ) &&
+        //     attemptNumber == this.retryOptions.retries
+        //   ) {
+        //     // console.log(
+        //     //   `Failed to get quotes on Arbitrum due to provider gas error issue. Overriding error to return 0 quotes.`
+        //     // );
+        //     return {
+        //       results: [],
+        //       blockNumber: BigNumber.from(0),
+        //       approxGasUsedPerSuccessCall: 0,
+        //     };
+        //   }
+        //   throw new Error(
+        //     `Failed to get ${failedQuoteStates.length} quotes. Reasons: ${reasonForFailureStr}`
+        //   );
+        // }
 
         const callResults = _.map(
           successfulQuoteStates,
           (quoteState) => quoteState.results
-        );
+        )
 
+        // if (!callResults[0]) {
+        //   return {
+        //     results: [],
+        //     blockNumber: BigNumber.from(0),
+        //     approxGasUsedPerSuccessCall: 0,
+        //   };
+        // }
+
+        console.log({ failedQuoteStates, callResults })
         return {
           results: _.flatMap(callResults, (result) => result.results),
           blockNumber: BigNumber.from(callResults[0]!.blockNumber),
@@ -814,10 +819,8 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
       .value();
 
     log.info(
-      `Got ${successfulQuotes.length} successful quotes, ${
-        failedQuotes.length
-      } failed quotes. Took ${
-        finalAttemptNumber - 1
+      `Got ${successfulQuotes.length} successful quotes, ${failedQuotes.length
+      } failed quotes. Took ${finalAttemptNumber - 1
       } attempt loops. Total calls made to provider: ${totalCallsMade}. Have retried for timeout: ${haveRetriedForTimeout}`
     );
 
