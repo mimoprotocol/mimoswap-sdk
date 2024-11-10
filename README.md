@@ -6,6 +6,20 @@ It searches for the most efficient way to swap token A for token B, considering 
 
 ## Testing
 
+### env
+
+add `.env` with
+```
+JSON_RPC_PROVIDER=
+JSON_RPC_PROVIDER_IOTEX=https://babel-api.mainnet.iotex.io
+```
+
+### build
+
+```
+pnpm build
+```
+
 ### Test
 
 ```
