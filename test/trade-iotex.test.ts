@@ -18,12 +18,10 @@ describe('IOTEX Trade Test', () => {
   const chainProvider = ID_TO_PROVIDER(chainId);
   const provider = new JsonRpcProvider(chainProvider, chainId);
 
-  const a1 = '0xa00744882684c3e4747faefd68d283ea44099d03';
-  const a2 = '0xb8744ae4032be5e5ef9fab94ee9c3bf38d5d2ae0';
 
-  it(`trade-iotex-test`, async () => {
-    const t1 = new Token(chainId, a1, 18);
-    const t2 = new Token(chainId, a2, 18);
+  it(`trade-wiotx-vita-v3`, async () => {
+    const t1 = new Token(chainId, "0xa00744882684c3e4747faefd68d283ea44099d03", 18);
+    const t2 = new Token(chainId, "0xb8744ae4032be5e5ef9fab94ee9c3bf38d5d2ae0", 18);
     const router = new AlphaRouter({
       chainId,
       provider,
@@ -31,7 +29,7 @@ describe('IOTEX Trade Test', () => {
     const route = await router.route(
       CurrencyAmount.fromRawAmount(t1, parseUnits('1', 18).toString()),
       t2,
-      TradeType.EXACT_OUTPUT,
+      TradeType.EXACT_INPUT,
       {
         recipient: '0x0000000000000000000000000000000000000000',
         slippageTolerance: new Percent(1000, 10_000),
@@ -39,9 +37,60 @@ describe('IOTEX Trade Test', () => {
         type: SwapType.SWAP_ROUTER_02,
       },
       {
-        protocols: [Protocol.V2],
+        protocols: [Protocol.V3],
       }
     );
     console.log('route=>', route);
+    expect(route.swapRoute).not.toBeNull();
   });
+
+  // it(`trade-wiotx-usdc.e`, async () => {
+  //   const t1 = new Token(chainId, "0xa00744882684c3e4747faefd68d283ea44099d03", 18);
+  //   const t2 = new Token(chainId, "0xcdf79194c6c285077a58da47641d4dbe51f63542", 6);
+  //   const router = new AlphaRouter({
+  //     chainId,
+  //     provider,
+  //   });
+  //   const route = await router.route(
+  //     CurrencyAmount.fromRawAmount(t1, parseUnits('1', 18).toString()),
+  //     t2,
+  //     TradeType.EXACT_INPUT,
+  //     {
+  //       recipient: '0x0000000000000000000000000000000000000000',
+  //       slippageTolerance: new Percent(1000, 10_000),
+  //       deadline: Math.floor(Date.now() / 1000 + 1800),
+  //       type: SwapType.SWAP_ROUTER_02,
+  //     },
+  //     {
+  //       protocols: [Protocol.V3],
+  //     }
+  //   );
+  //   console.log('route=>', route);
+  //   expect(route.swapRoute).not.toBeNull();
+  // });
+
+  // it(`trade-vita-usdc.e-mixed`, async () => {
+  //   const t1 = new Token(chainId, "0xb8744ae4032be5e5ef9fab94ee9c3bf38d5d2ae0", 18);
+  //   const t2 = new Token(chainId, "0xcdf79194c6c285077a58da47641d4dbe51f63542", 6);
+  //   const router = new AlphaRouter({
+  //     chainId,
+  //     provider,
+  //   });
+  //   const route = await router.route(
+  //     CurrencyAmount.fromRawAmount(t1, parseUnits('1', 18).toString()),
+  //     t2,
+  //     TradeType.EXACT_INPUT,
+  //     {
+  //       recipient: '0x0000000000000000000000000000000000000000',
+  //       slippageTolerance: new Percent(1000, 10_000),
+  //       // deadline: Math.floor(Date.now() / 1000 + 1800),
+  //       type: SwapType.UNIVERSAL_ROUTER,
+  //     },
+  //     {
+  //       protocols: [Protocol.MIXED],
+  //     }
+  //   );
+  //   console.log('route=>', route);
+  //   expect(route.swapRoute).not.toBeNull();
+  // })
 });
