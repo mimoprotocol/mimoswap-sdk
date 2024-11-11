@@ -290,7 +290,7 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
       rollback: { enabled: false },
     },
     protected quoterAddressOverride?: string
-  ) { }
+  ) {}
 
   private getQuoterAddress(useMixedRouteQuoter: boolean): string {
     if (this.quoterAddressOverride) {
@@ -372,14 +372,13 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
     let gasLimitOverride = this.batchParams.gasLimitPerCall;
     const { baseBlockOffset, rollback } = this.blockNumberConfig;
 
-
-
     // Apply the base block offset if provided
     const originalBlockNumber = await this.provider.getBlockNumber();
     const providerConfig: ProviderConfig = {
       ..._providerConfig,
       blockNumber:
-        await _providerConfig?.blockNumber ?? originalBlockNumber + baseBlockOffset,
+        (await _providerConfig?.blockNumber) ??
+        originalBlockNumber + baseBlockOffset,
     };
     //@ts-ignore
     // console.log("routes", { routes, amounts: amounts.map(i => i.numerator.toString()), liquidity: routes.map(i => i.pools[0]?.liquidity.toString()) })
@@ -388,14 +387,14 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
         const encodedRoute =
           route.protocol === Protocol.V3
             ? encodeRouteToPath(
-              route,
-              functionName == 'quoteExactOutput' // For exactOut must be true to ensure the routes are reversed.
-            )
+                route,
+                functionName == 'quoteExactOutput' // For exactOut must be true to ensure the routes are reversed.
+              )
             : encodeMixedRouteToPath(
-              route instanceof V2Route
-                ? new MixedRouteSDK(route.pairs, route.input, route.output)
-                : route
-            );
+                route instanceof V2Route
+                  ? new MixedRouteSDK(route.pairs, route.input, route.output)
+                  : route
+              );
         const routeInputs: [string, string][] = amounts.map((amount) => [
           encodedRoute,
           `0x${amount.quotient.toString(16)}`,
@@ -461,11 +460,12 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
 
         log.info(
           `Starting attempt: ${attemptNumber}.
-          Currently ${success.length} success, ${failed.length} failed, ${pending.length
+          Currently ${success.length} success, ${failed.length} failed, ${
+            pending.length
           } pending.
           Gas limit override: ${gasLimitOverride} Block number override: ${await providerConfig.blockNumber}.`
         );
-        console.log({ quoteStates })
+        // console.log({ quoteStates })
         quoteStates = await Promise.all(
           _.map(
             quoteStates,
@@ -495,7 +495,7 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
                     },
                   });
 
-                console.log({ results })
+                // console.log({ results })
                 const successRateError = this.validateSuccessRate(
                   results.results,
                   haveRetriedForSuccessRate
@@ -533,7 +533,8 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
                     status: 'failed',
                     inputs,
                     reason: new ProviderTimeoutError(
-                      `Req ${idx}/${quoteStates.length}. Request had ${inputs.length
+                      `Req ${idx}/${quoteStates.length}. Request had ${
+                        inputs.length
                       } inputs. ${err.message.slice(0, 500)}`
                     ),
                   } as QuoteBatchFailed;
@@ -634,13 +635,14 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
                   !blockHeaderRolledBack
                 ) {
                   log.info(
-                    `Attempt ${attemptNumber}. Have failed due to block header ${blockHeaderRetryAttemptNumber - 1
+                    `Attempt ${attemptNumber}. Have failed due to block header ${
+                      blockHeaderRetryAttemptNumber - 1
                     } times. Rolling back block number by ${rollbackBlockOffset} for next retry`
                   );
                   providerConfig.blockNumber = providerConfig.blockNumber
                     ? (await providerConfig.blockNumber) + rollbackBlockOffset
                     : (await this.provider.getBlockNumber()) +
-                    rollbackBlockOffset;
+                      rollbackBlockOffset;
 
                   retryAll = true;
                   blockHeaderRolledBack = true;
@@ -697,9 +699,9 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
         }
 
         if (retryAll) {
-          console.log(
-            `Attempt ${attemptNumber}. Resetting all requests to pending for next attempt.`
-          );
+          // console.log(
+          //   `Attempt ${attemptNumber}. Resetting all requests to pending for next attempt.`
+          // );
 
           const normalizedChunk = Math.ceil(
             inputs.length / Math.ceil(inputs.length / multicallChunk)
@@ -751,7 +753,7 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
         const callResults = _.map(
           successfulQuoteStates,
           (quoteState) => quoteState.results
-        )
+        );
 
         // if (!callResults[0]) {
         //   return {
@@ -761,7 +763,7 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
         //   };
         // }
 
-        console.log({ failedQuoteStates, callResults })
+        // console.log({ failedQuoteStates, callResults })
         return {
           results: _.flatMap(callResults, (result) => result.results),
           blockNumber: BigNumber.from(callResults[0]!.blockNumber),
@@ -819,8 +821,10 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
       .value();
 
     log.info(
-      `Got ${successfulQuotes.length} successful quotes, ${failedQuotes.length
-      } failed quotes. Took ${finalAttemptNumber - 1
+      `Got ${successfulQuotes.length} successful quotes, ${
+        failedQuotes.length
+      } failed quotes. Took ${
+        finalAttemptNumber - 1
       } attempt loops. Total calls made to provider: ${totalCallsMade}. Have retried for timeout: ${haveRetriedForTimeout}`
     );
 
