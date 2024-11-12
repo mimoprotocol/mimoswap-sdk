@@ -215,7 +215,9 @@ export async function getBestSwapRouteBy(
 
   const { minSplits, maxSplits, forceCrossProtocol } = routingConfig;
 
-  if (!percentToSortedQuotes[100] || minSplits > 1 || forceCrossProtocol) {
+  const routeWithValidQuoteList = percentToSortedQuotes[100];
+
+  if (!routeWithValidQuoteList || minSplits > 1 || forceCrossProtocol) {
     log.info(
       {
         percentToSortedQuotes: _.mapValues(
@@ -226,10 +228,12 @@ export async function getBestSwapRouteBy(
       'Did not find a valid route without any splits. Continuing search anyway.'
     );
   } else {
-    bestQuote = by(percentToSortedQuotes[100][0]!);
-    bestSwap = [percentToSortedQuotes[100][0]!];
+    const validQuote =
+      routeWithValidQuoteList[routeWithValidQuoteList.length - 1]!;
+    bestQuote = by(validQuote!);
+    bestSwap = [validQuote!];
 
-    for (const routeWithQuote of percentToSortedQuotes[100].slice(0, 5)) {
+    for (const routeWithQuote of routeWithValidQuoteList.slice(0, 5)) {
       bestSwapsPerSplit.push({
         quote: by(routeWithQuote),
         routes: [routeWithQuote],

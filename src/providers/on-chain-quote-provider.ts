@@ -465,7 +465,7 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
           } pending.
           Gas limit override: ${gasLimitOverride} Block number override: ${await providerConfig.blockNumber}.`
         );
-        // console.log({ quoteStates })
+
         quoteStates = await Promise.all(
           _.map(
             quoteStates,
@@ -763,7 +763,6 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
         //   };
         // }
 
-        // console.log({ failedQuoteStates, callResults })
         return {
           results: _.flatMap(callResults, (result) => result.results),
           blockNumber: BigNumber.from(callResults[0]!.blockNumber),
