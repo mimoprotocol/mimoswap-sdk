@@ -162,7 +162,7 @@ export const WETH9: {
   ),
   [ChainId.IOTEX]: new Token(
     ChainId.IOTEX,
-    '0xa00744882684c3e4747faefd68d283ea44099d03',
+    '0xA00744882684C3e4747faEFD68D283eA44099D03',
     18,
     'WIOTX',
     'Wrapped IoTeX'

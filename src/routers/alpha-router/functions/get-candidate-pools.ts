@@ -577,7 +577,7 @@ export async function getV3CandidatePools({
     const tokenB = tokenAccessor.getTokenByAddress(subgraphPool.token1.id);
     let fee: FeeAmount;
     try {
-      fee = parseFeeAmount(subgraphPool.feeTier);
+      fee = parseFeeAmount(subgraphPool.feeTier.toString());
     } catch (err) {
       log.info(
         { subgraphPool },
@@ -1368,7 +1368,7 @@ export async function getMixedRouteCandidatePools({
     const tokenB = tokenAccessor.getTokenByAddress(subgraphPool.token1.id);
     let fee: FeeAmount;
     try {
-      fee = parseFeeAmount(subgraphPool.feeTier);
+      fee = parseFeeAmount(subgraphPool.feeTier.toString());
     } catch (err) {
       log.info(
         { subgraphPool },
