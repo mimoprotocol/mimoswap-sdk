@@ -1,6 +1,6 @@
 {
   "name": "@dappworks/mimoswap-sdk",
-  "version": "0.0.26",
+  "version": "0.0.27",
   "description": "Uniswap Smart Order Router",
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",
@@ -89,7 +89,7 @@
     "@types/bunyan-blackhole": "^0.2.2",
     "@types/jest": "^27.0.0",
     "@types/jest-sinon": "^1.0.2",
-    "@types/lodash": "^4.14.168",
+    "@types/lodash": "^4.17.0",
     "@types/node": "^20.11.30",
     "@types/sinon": "^10.0.2",
     "@types/stats-lite": "^2.2.0",

@@ -579,7 +579,7 @@ export async function getV3CandidatePools({
     try {
       fee = parseFeeAmount(subgraphPool.feeTier.toString());
     } catch (err) {
-      log.info(
+      console.log(
         { subgraphPool },
         `Dropping candidate pool for ${subgraphPool.token0.id}/${subgraphPool.token1.id}/${subgraphPool.feeTier} because fee tier not supported`
       );
@@ -1370,7 +1370,7 @@ export async function getMixedRouteCandidatePools({
     try {
       fee = parseFeeAmount(subgraphPool.feeTier.toString());
     } catch (err) {
-      log.info(
+      console.log(
         { subgraphPool },
         `Dropping candidate pool for ${subgraphPool.token0.id}/${subgraphPool.token1.id}/${subgraphPool.feeTier} because fee tier not supported`
       );

@@ -159,7 +159,7 @@ describe('IOTEX Trade Test', () => {
       provider,
     });
     const route = await router.route(
-      CurrencyAmount.fromRawAmount(t1, parseUnits('10', 18).toString()),
+      CurrencyAmount.fromRawAmount(t1, parseUnits('100000', 18).toString()),
       t2,
       TradeType.EXACT_INPUT,
       {
@@ -169,11 +169,46 @@ describe('IOTEX Trade Test', () => {
         type: SwapType.SWAP_ROUTER_02,
       },
       {
-        protocols: [Protocol.V2],
+        protocols: [Protocol.V3],
       }
     );
     console.log('route=>', route);
     console.log('tokenPath=>', JSON.stringify(route?.swapRoute?.route));
     expect(route.swapRoute).not.toBeNull();
+  });
+
+  it(`trade-wiotx-wen-EXACT_OUTPUT`, async () => {
+    const tokenIn = new Token(
+      chainId,
+      '0xa00744882684c3e4747faefd68d283ea44099d03',
+      18
+    );
+    const tokenOut = new Token(
+      chainId,
+      '0x6c0bf4b53696b5434a0d21c7d13aa3cbf754913e',
+      18
+    );
+
+    const router = new AlphaRouter({
+      chainId,
+      provider,
+    });
+
+    const route = await router.route(
+      CurrencyAmount.fromRawAmount(tokenOut, '10000000000000000000'),
+      tokenIn,
+      TradeType.EXACT_OUTPUT,
+      {
+        recipient: '0x0000000000000000000000000000000000000000',
+        slippageTolerance: new Percent(1000, 10_000),
+        deadline: Math.floor(Date.now() / 1000 + 1800),
+        type: SwapType.SWAP_ROUTER_02,
+      },
+      {
+        protocols: [Protocol.V3],
+      }
+    );
+    console.log('route=>', route);
+    // expect(route.swapRoute).not.toBeNull();
   });
 });
