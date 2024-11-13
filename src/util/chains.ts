@@ -44,6 +44,7 @@ export const HAS_L1_FEE = [
   ChainId.BASE,
   ChainId.BASE_GOERLI,
   ChainId.BLAST,
+  ChainId.IOTEX,
 ];
 
 export const NETWORKS_WITH_SAME_UNISWAP_ADDRESSES = [

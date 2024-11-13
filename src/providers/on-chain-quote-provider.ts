@@ -380,8 +380,18 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
         (await _providerConfig?.blockNumber) ??
         originalBlockNumber + baseBlockOffset,
     };
-    //@ts-ignore
-    // console.log("routes", { routes, amounts: amounts.map(i => i.numerator.toString()), liquidity: routes.map(i => i.pools[0]?.liquidity.toString()) })
+
+    // @ts-ignore
+    // console.log(
+    //   'routes=>',
+    //   JSON.stringify({
+    //     routes,
+    //     amounts: amounts.map((i) => i.numerator.toString()),
+    //     // @ts-ignore
+    //     liquidity: routes.map((i) => i.pools[0]?.liquidity.toString()),
+    //   })
+    // );
+
     const inputs: [string, string][] = _(routes)
       .flatMap((route) => {
         const encodedRoute =
@@ -456,15 +466,14 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
         haveIncrementedBlockHeaderFailureCounter = false;
         finalAttemptNumber = attemptNumber;
 
-        const [success, failed, pending] = this.partitionQuotes(quoteStates);
-
-        log.info(
-          `Starting attempt: ${attemptNumber}.
-          Currently ${success.length} success, ${failed.length} failed, ${
-            pending.length
-          } pending.
-          Gas limit override: ${gasLimitOverride} Block number override: ${await providerConfig.blockNumber}.`
-        );
+        // this.partitionQuotes(quoteStates);
+        // log.info(
+        //   `Starting attempt: ${attemptNumber}.
+        //   Currently ${success.length} success, ${failed.length} failed, ${
+        //     pending.length
+        //   } pending.
+        //   Gas limit override: ${gasLimitOverride} Block number override: ${await providerConfig.blockNumber}.`
+        // );
 
         quoteStates = await Promise.all(
           _.map(
@@ -495,7 +504,8 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
                     },
                   });
 
-                // console.log({ results })
+                // console.log('multicall results=>', JSON.stringify(results));
+
                 const successRateError = this.validateSuccessRate(
                   results.results,
                   haveRetriedForSuccessRate
@@ -516,6 +526,7 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
                   results,
                 } as QuoteBatchSuccess;
               } catch (err: any) {
+                // console.log('multicall err=>', JSON.stringify(err));
                 // Error from providers have huge messages that include all the calldata and fill the logs.
                 // Catch them and rethrow with shorter message.
                 if (err.message.includes('header not found')) {
@@ -755,13 +766,13 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
           (quoteState) => quoteState.results
         );
 
-        // if (!callResults[0]) {
-        //   return {
-        //     results: [],
-        //     blockNumber: BigNumber.from(0),
-        //     approxGasUsedPerSuccessCall: 0,
-        //   };
-        // }
+        if (!callResults[0]) {
+          return {
+            results: [],
+            blockNumber: BigNumber.from(0),
+            approxGasUsedPerSuccessCall: 0,
+          };
+        }
 
         return {
           results: _.flatMap(callResults, (result) => result.results),
@@ -777,7 +788,7 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
         ...this.retryOptions,
       }
     );
-    // console.log("quoteResults", quoteResults, routes, amounts)
+
     const routesQuotes = this.processQuoteResults(
       quoteResults,
       routes,
