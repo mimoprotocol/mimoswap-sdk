@@ -228,8 +228,7 @@ export async function getBestSwapRouteBy(
       'Did not find a valid route without any splits. Continuing search anyway.'
     );
   } else {
-    const validQuote =
-      routeWithValidQuoteList[routeWithValidQuoteList.length - 1]!;
+    const validQuote = routeWithValidQuoteList[0]!;
     bestQuote = by(validQuote!);
     bestSwap = [validQuote!];
 
