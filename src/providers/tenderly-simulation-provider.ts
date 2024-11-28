@@ -4,8 +4,8 @@ import https from 'https';
 import { MaxUint256 } from '@ethersproject/constants';
 import { JsonRpcProvider } from '@ethersproject/providers';
 import { ChainId } from '../sdk-core';
+import { PERMIT2_ADDRESS } from '../universal-router-sdk/utils/constants';
 import {
-  PERMIT2_ADDRESS,
   UNIVERSAL_ROUTER_ADDRESS,
   UniversalRouterVersion,
 } from '../universal-router-sdk';
