@@ -217,16 +217,16 @@ export class UniswapTrade implements Command {
             routerMustCustody
           );
           break;
-        // case Protocol.V4:
-        //   addV4Swap(
-        //     planner,
-        //     swap,
-        //     this.trade.tradeType,
-        //     this.options,
-        //     this.payerIsUser,
-        //     routerMustCustody
-        //   );
-        //   break;
+        case Protocol.V4:
+          addV4Swap(
+            planner,
+            swap,
+            this.trade.tradeType,
+            this.options,
+            this.payerIsUser,
+            routerMustCustody
+          );
+          break;
         case Protocol.MIXED:
           addMixedSwap(
             planner,
