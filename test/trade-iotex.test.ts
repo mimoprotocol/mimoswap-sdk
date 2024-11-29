@@ -201,8 +201,8 @@ describe('IOTEX Trade Test', () => {
   //     {
   //       recipient: '0x0000000000000000000000000000000000000000',
   //       slippageTolerance: new Percent(1000, 10_000),
-  //       deadline: Math.floor(Date.now() / 1000 + 1800),
-  //       type: SwapType.SWAP_ROUTER_02,
+  //       // deadline: Math.floor(Date.now() / 1000 + 1800),
+  //       type: SwapType.UNIVERSAL_ROUTER,
   //     },
   //     {
   //       protocols: [Protocol.V3],

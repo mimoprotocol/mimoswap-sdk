@@ -1,4 +1,4 @@
-import { defaultAbiCoder } from 'ethers/lib/utils'
+import { defaultAbiCoder } from 'ethers/lib/utils';
 
 /**
  * CommandTypes
@@ -43,36 +43,40 @@ export enum Parser {
 }
 
 export type ParamType = {
-  readonly name: string
-  readonly type: string
-  readonly subparser?: Subparser
-}
+  readonly name: string;
+  readonly type: string;
+  readonly subparser?: Subparser;
+};
 
 export type CommandDefinition =
   | {
-      parser: Parser.Abi
-      params: ParamType[]
+      parser: Parser.Abi;
+      params: ParamType[];
     }
   | {
-      parser: Parser.V4Actions
+      parser: Parser.V4Actions;
     }
   | {
-      parser: Parser.V3Actions
-    }
+      parser: Parser.V3Actions;
+    };
 
-const ALLOW_REVERT_FLAG = 0x80
-const REVERTIBLE_COMMANDS = new Set<CommandType>([CommandType.EXECUTE_SUB_PLAN])
+const ALLOW_REVERT_FLAG = 0x80;
+const REVERTIBLE_COMMANDS = new Set<CommandType>([
+  CommandType.EXECUTE_SUB_PLAN,
+]);
 
 const PERMIT_STRUCT =
-  '((address token,uint160 amount,uint48 expiration,uint48 nonce) details,address spender,uint256 sigDeadline)'
+  '((address token,uint160 amount,uint48 expiration,uint48 nonce) details,address spender,uint256 sigDeadline)';
 
 const PERMIT_BATCH_STRUCT =
-  '((address token,uint160 amount,uint48 expiration,uint48 nonce)[] details,address spender,uint256 sigDeadline)'
+  '((address token,uint160 amount,uint48 expiration,uint48 nonce)[] details,address spender,uint256 sigDeadline)';
 
-const POOL_KEY_STRUCT = '(address currency0,address currency1,uint24 fee,int24 tickSpacing,address hooks)'
+const POOL_KEY_STRUCT =
+  '(address currency0,address currency1,uint24 fee,int24 tickSpacing,address hooks)';
 
-const PERMIT2_TRANSFER_FROM_STRUCT = '(address from,address to,uint160 amount,address token)'
-const PERMIT2_TRANSFER_FROM_BATCH_STRUCT = PERMIT2_TRANSFER_FROM_STRUCT + '[]'
+const PERMIT2_TRANSFER_FROM_STRUCT =
+  '(address from,address to,uint160 amount,address token)';
+const PERMIT2_TRANSFER_FROM_BATCH_STRUCT = PERMIT2_TRANSFER_FROM_STRUCT + '[]';
 
 export const COMMAND_DEFINITION: { [key in CommandType]: CommandDefinition } = {
   // Batch Reverts
@@ -219,56 +223,71 @@ export const COMMAND_DEFINITION: { [key in CommandType]: CommandDefinition } = {
   [CommandType.V3_POSITION_MANAGER_PERMIT]: { parser: Parser.V3Actions },
   [CommandType.V3_POSITION_MANAGER_CALL]: { parser: Parser.V3Actions },
   [CommandType.V4_POSITION_MANAGER_CALL]: { parser: Parser.V4Actions },
-}
+};
 
 export class RoutePlanner {
-  commands: string
-  inputs: string[]
+  commands: string;
+  inputs: string[];
 
   constructor() {
-    this.commands = '0x'
-    this.inputs = []
+    this.commands = '0x';
+    this.inputs = [];
   }
 
   addSubPlan(subplan: RoutePlanner): RoutePlanner {
-    this.addCommand(CommandType.EXECUTE_SUB_PLAN, [subplan.commands, subplan.inputs], true)
-    return this
+    this.addCommand(
+      CommandType.EXECUTE_SUB_PLAN,
+      [subplan.commands, subplan.inputs],
+      true
+    );
+    return this;
   }
 
-  addCommand(type: CommandType, parameters: any[], allowRevert = false): RoutePlanner {
-    let command = createCommand(type, parameters)
-    this.inputs.push(command.encodedInput)
+  addCommand(
+    type: CommandType,
+    parameters: any[],
+    allowRevert = false
+  ): RoutePlanner {
+    let command = createCommand(type, parameters);
+    this.inputs.push(command.encodedInput);
     if (allowRevert) {
       if (!REVERTIBLE_COMMANDS.has(command.type)) {
-        throw new Error(`command type: ${command.type} cannot be allowed to revert`)
+        throw new Error(
+          `command type: ${command.type} cannot be allowed to revert`
+        );
       }
-      command.type = command.type | ALLOW_REVERT_FLAG
+      command.type = command.type | ALLOW_REVERT_FLAG;
     }
 
-    this.commands = this.commands.concat(command.type.toString(16).padStart(2, '0'))
-    return this
+    this.commands = this.commands.concat(
+      command.type.toString(16).padStart(2, '0')
+    );
+    return this;
   }
 }
 
 export type RouterCommand = {
-  type: CommandType
-  encodedInput: string
-}
+  type: CommandType;
+  encodedInput: string;
+};
 
-export function createCommand(type: CommandType, parameters: any[]): RouterCommand {
-  const commandDef = COMMAND_DEFINITION[type]
+export function createCommand(
+  type: CommandType,
+  parameters: any[]
+): RouterCommand {
+  const commandDef = COMMAND_DEFINITION[type];
   switch (commandDef.parser) {
     case Parser.Abi:
       const encodedInput = defaultAbiCoder.encode(
         commandDef.params.map((abi) => abi.type),
         parameters
-      )
-      return { type, encodedInput }
+      );
+      return { type, encodedInput };
     case Parser.V4Actions:
       // v4 swap data comes pre-encoded at index 0
-      return { type, encodedInput: parameters[0] }
+      return { type, encodedInput: parameters[0] };
     case Parser.V3Actions:
       // v4 swap data comes pre-encoded at index 0
-      return { type, encodedInput: parameters[0] }
+      return { type, encodedInput: parameters[0] };
   }
 }
