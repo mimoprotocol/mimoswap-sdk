@@ -1,5 +1,5 @@
 import { ethers } from 'ethers';
-import { abi } from '../../abis/UniversalRouter.json';
+import { abi } from '../abis/UniversalRouter.json';
 import { Interface } from '@ethersproject/abi';
 import { V4BaseActionsParser, V4RouterAction } from '@uniswap/v4-sdk';
 import {
