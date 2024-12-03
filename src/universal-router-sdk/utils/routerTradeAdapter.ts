@@ -24,7 +24,6 @@ export type TokenInRoute = {
 export enum PoolType {
   V2Pool = 'v2-pool',
   V3Pool = 'v3-pool',
-  V4Pool = 'v4-pool',
 }
 
 export type V2Reserve = {
@@ -89,7 +88,6 @@ export class RouterTradeAdapter {
     if (route.some((r) => !r.length))
       throw new Error('Expected all routes to have at least one pool');
     const firstRoute = route[0];
-
     // @ts-ignore
     const tokenInData = firstRoute[0].tokenIn;
     // @ts-ignore
