@@ -1,16 +1,17 @@
-import { RoutePlanner } from '../utils/routerCommands';
+import { RoutePlanner } from '../utils/routerCommands'
 
 export type TradeConfig = {
-  allowRevert: boolean;
-};
+  allowRevert: boolean
+}
 
-export enum RouterActionType {
+export enum RouterTradeType {
   UniswapTrade = 'UniswapTrade',
+  NFTTrade = 'NFTTrade',
   UnwrapWETH = 'UnwrapWETH',
 }
 
 // interface for entities that can be encoded as a Universal Router command
 export interface Command {
-  tradeType: RouterActionType;
-  encode(planner: RoutePlanner, config: TradeConfig): void;
+  tradeType: RouterTradeType
+  encode(planner: RoutePlanner, config: TradeConfig): void
 }

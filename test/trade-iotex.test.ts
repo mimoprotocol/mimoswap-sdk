@@ -13,27 +13,27 @@ import {
   AlphaRouter,
   ID_TO_CHAIN_ID,
   ID_TO_PROVIDER,
-  NATIVE_NAMES_BY_ID,
-  nativeOnChain,
+  // NATIVE_NAMES_BY_ID,
+  // nativeOnChain,
   SwapType,
 } from '../src';
 import { Protocol } from '../src/router-sdk';
 import _ from 'lodash';
 
-const getCurrency = ({
-  chainId,
-  tokenStr,
-  decimals,
-}: {
-  chainId: number;
-  tokenStr: string;
-  decimals: number;
-}) => {
-  const currency = NATIVE_NAMES_BY_ID[chainId]!.includes(tokenStr)
-    ? nativeOnChain(chainId)
-    : new Token(chainId, tokenStr, decimals);
-  return currency;
-};
+// const getCurrency = ({
+//   chainId,
+//   tokenStr,
+//   decimals,
+// }: {
+//   chainId: number;
+//   tokenStr: string;
+//   decimals: number;
+// }) => {
+//   const currency = NATIVE_NAMES_BY_ID[chainId]!.includes(tokenStr)
+//     ? nativeOnChain(chainId)
+//     : new Token(chainId, tokenStr, decimals);
+//   return currency;
+// };
 
 describe('IOTEX Trade Test', () => {
   const chainId = ID_TO_CHAIN_ID(ChainId.IOTEX);
@@ -143,15 +143,15 @@ describe('IOTEX Trade Test', () => {
   //   expect(route.swapRoute).not.toBeNull();
   // });
 
-  it(`trade-iotx-ioUSD-v3`, async () => {
-    const t1 = getCurrency({
+  it(`trade-dwin-dimo-mixed`, async () => {
+    const t1 = new Token(
       chainId,
-      tokenStr: 'IOTX',
-      decimals: 18,
-    });
+      '0xa7108637552cec7e8c2dd08a9cd995caff8b4280',
+      18
+    );
     const t2 = new Token(
       chainId,
-      '0xa1a1531f6ae90192edcc32e9f38e98f303708144',
+      '0x61db9b084326d2251ccb0252c18fd9b0e887ca4f',
       18
     );
     const router = new AlphaRouter({
@@ -159,7 +159,7 @@ describe('IOTEX Trade Test', () => {
       provider,
     });
     const route = await router.route(
-      CurrencyAmount.fromRawAmount(t1, parseUnits('100000', 18).toString()),
+      CurrencyAmount.fromRawAmount(t1, parseUnits('1', 6).toString()),
       t2,
       TradeType.EXACT_INPUT,
       {
@@ -169,13 +169,50 @@ describe('IOTEX Trade Test', () => {
         type: SwapType.UNIVERSAL_ROUTER,
       },
       {
-        protocols: [Protocol.V3],
+        protocols: [Protocol.MIXED],
       }
     );
     console.log('route=>', route);
-    console.log('tokenPath=>', JSON.stringify(route?.swapRoute?.route));
+    console.log(
+      'tokenPath=>',
+      JSON.stringify(route?.swapRoute?.route?.[0]?.tokenPath, null, 2)
+    );
     expect(route.swapRoute).not.toBeNull();
   });
+
+  // it(`trade-iotx-ioUSD-v3`, async () => {
+  //   const t1 = getCurrency({
+  //     chainId,
+  //     tokenStr: 'IOTX',
+  //     decimals: 18,
+  //   });
+  //   const t2 = new Token(
+  //     chainId,
+  //     '0xa1a1531f6ae90192edcc32e9f38e98f303708144',
+  //     18
+  //   );
+  //   const router = new AlphaRouter({
+  //     chainId,
+  //     provider,
+  //   });
+  //   const route = await router.route(
+  //     CurrencyAmount.fromRawAmount(t1, parseUnits('100000', 18).toString()),
+  //     t2,
+  //     TradeType.EXACT_INPUT,
+  //     {
+  //       recipient: '0x0000000000000000000000000000000000000000',
+  //       slippageTolerance: new Percent(1000, 10_000),
+  //       // deadline: Math.floor(Date.now() / 1000 + 1800),
+  //       type: SwapType.UNIVERSAL_ROUTER,
+  //     },
+  //     {
+  //       protocols: [Protocol.V3],
+  //     }
+  //   );
+  //   console.log('route=>', route);
+  //   console.log('tokenPath=>', JSON.stringify(route?.swapRoute?.route));
+  //   expect(route.swapRoute).not.toBeNull();
+  // });
 
   // it(`trade-wiotx-wen-EXACT_OUTPUT`, async () => {
   //   const tokenIn = new Token(

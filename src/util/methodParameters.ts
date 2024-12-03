@@ -237,7 +237,7 @@ export function buildSwapMethodParameters(
 ): MethodParameters {
   if (swapConfig.type == SwapType.UNIVERSAL_ROUTER) {
     return {
-      ...UniversalRouter.swapCallParameters(trade, swapConfig),
+      ...UniversalRouter.swapERC20CallParameters(trade, swapConfig),
       to: UNIVERSAL_ROUTER_ADDRESS(UniversalRouterVersion.V2_0, chainId),
     };
   } else if (swapConfig.type == SwapType.SWAP_ROUTER_02) {
