@@ -5,11 +5,11 @@ import {
   encodeInputTokenOptions,
   Permit2Permit,
 } from '../../utils/inputTokens';
-import { Command, RouterActionType, TradeConfig } from '../Command';
+import { Command, RouterTradeType, TradeConfig } from '../Command';
 import { ROUTER_AS_RECIPIENT, WETH_ADDRESS } from '../../utils/constants';
 
 export class UnwrapWETH implements Command {
-  readonly tradeType: RouterActionType = RouterActionType.UnwrapWETH;
+  readonly tradeType: RouterTradeType = RouterTradeType.UnwrapWETH;
   // @ts-ignore
   readonly permit2Data: Permit2Permit;
   readonly wethAddress: string;
