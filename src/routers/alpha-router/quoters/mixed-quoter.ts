@@ -188,7 +188,7 @@ export class MixedQuoter extends BaseQuoter<
     log.info(
       `Getting quotes for mixed for ${routes.length} routes with ${amounts.length} amounts per route.`
     );
-
+    //@ts-ignore
     const { routesWithQuotes } = await quoteFn<MixedRoute>(amounts, routes, {
       blockNumber: routingConfig.blockNumber,
     });

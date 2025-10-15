@@ -1,8 +1,8 @@
 import JSBI from 'jsbi';
 import { ChainId } from '../../sdk-core';
 
-import { ICache } from './../cache';
 import { IV3SubgraphProvider, V3SubgraphPool } from './subgraph-provider';
+import { BentoCache } from 'bentocache';
 
 /**
  * Provider for getting V3 pools, with functionality for caching the results.
@@ -22,31 +22,27 @@ export class CachingV3SubgraphProvider implements IV3SubgraphProvider {
   constructor(
     private chainId: ChainId,
     protected subgraphProvider: IV3SubgraphProvider,
-    private cache: ICache<V3SubgraphPool[]>
-  ) {}
+    private cache: BentoCache<any>
+  ) { }
 
   public async getPools(): Promise<V3SubgraphPool[]> {
-    const cachedPools = await this.cache.get(this.SUBGRAPH_KEY(this.chainId));
-
-    if (cachedPools) {
-      return cachedPools;
-    }
-
-    let pools = await this.subgraphProvider.getPools();
-
-    // @ts-ignore
-    pools = pools.map((i) => {
-      const liquidity = Number(JSBI.BigInt(i.liquidity).toString());
-      return {
-        ...i,
-        liquidity: liquidity.toString(),
-        tvlETH: liquidity,
-        tvlUSD: liquidity,
-      };
+    const result = await this.cache.getOrSet({
+      key: this.SUBGRAPH_KEY(this.chainId),
+      factory: async () => {
+        const pools = await this.subgraphProvider.getPools();
+        const result = pools.map((i) => {
+          const liquidity = Number(JSBI.BigInt(i.liquidity).toString());
+          return {
+            ...i,
+            liquidity: liquidity.toString(),
+            tvlETH: liquidity,
+            tvlUSD: liquidity,
+          };
+        });
+        return result
+      },
+      ttl: '30s'
     });
-
-    await this.cache.set(this.SUBGRAPH_KEY(this.chainId), pools);
-
-    return pools;
+    return result
   }
 }

@@ -1,7 +1,7 @@
 import { ChainId } from '../../sdk-core';
 
-import { ICache } from './../cache';
 import { IV2SubgraphProvider, V2SubgraphPool } from './subgraph-provider';
+import { BentoCache } from 'bentocache';
 
 /**
  * Provider for getting V2 pools, with functionality for caching the results.
@@ -21,20 +21,15 @@ export class CachingV2SubgraphProvider implements IV2SubgraphProvider {
   constructor(
     private chainId: ChainId,
     protected subgraphProvider: IV2SubgraphProvider,
-    private cache: ICache<V2SubgraphPool[]>
+    private cache: BentoCache<any>
   ) { }
 
   public async getPools(): Promise<V2SubgraphPool[]> {
-    const cachedPools = await this.cache.get(this.SUBGRAPH_KEY(this.chainId));
-
-    if (cachedPools) {
-      return cachedPools;
-    }
-
-    let pools = await this.subgraphProvider.getPools();
-
-    await this.cache.set(this.SUBGRAPH_KEY(this.chainId), pools);
-
-    return pools;
+    const result = await this.cache.getOrSet({
+      key: this.SUBGRAPH_KEY(this.chainId),
+      factory: async () => this.subgraphProvider.getPools(),
+      ttl: '30s'
+    });
+    return result
   }
 }
