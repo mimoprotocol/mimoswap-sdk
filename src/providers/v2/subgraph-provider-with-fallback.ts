@@ -17,7 +17,7 @@ export class V2SubgraphProviderWithFallBacks implements IV2SubgraphProvider {
    * Creates an instance of V2SubgraphProviderWithFallBacks.
    * @param fallbacks Ordered list of `IV2SubgraphProvider` to try to get pools from.
    */
-  constructor(private fallbacks: IV2SubgraphProvider[]) {}
+  constructor(private fallbacks: IV2SubgraphProvider[]) { }
 
   public async getPools(
     tokenIn?: Token,
@@ -38,6 +38,6 @@ export class V2SubgraphProviderWithFallBacks implements IV2SubgraphProvider {
       }
     }
 
-    throw new Error('Failed to get subgraph pools from any providers');
+    throw new Error('Failed to get subgraph pools for V2 from any providers');
   }
 }
