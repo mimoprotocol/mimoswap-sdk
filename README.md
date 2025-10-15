@@ -12,6 +12,20 @@ npm install @dappworks/mimoswap-sdk
 
 ## Testing
 
+### env
+
+add `.env` with
+```
+JSON_RPC_PROVIDER=
+JSON_RPC_PROVIDER_IOTEX=https://babel-api.mainnet.iotex.io
+```
+
+### build
+
+```
+pnpm build
+```
+
 ### Test
 
 ```
